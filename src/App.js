@@ -15,7 +15,9 @@ export const DispatchContext = createContext();
 const App = () => {
   //Declare a new state variable, which we'll call 'count'
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state)
+  // console.log(state)
+  const db = firebase.firestore();
+  db.settings({ timestampsInSnapshots: true });
 
   const updateInput = e => {
     dispatch({
@@ -27,24 +29,25 @@ const App = () => {
 
   const addBeverage = (e) => {
     e.preventDefault()
-    const db = firebase.firestore();
-    db.settings({
-      timestampsInSnapshots: true
-    });
-    const beverageRef = db.collection('beverageList').add({
+    db.collection('beverageList').add({
       BeverageName: state.BeverageName,
       BeveragePrice: state.BeveragePrice,
       BeverageType: state.BeverageType
     })
-    console.log(state.BeverageName)
-    
     dispatch({type: 'BEVERAGE_FORM_SUBMIT'});
   }
- 
+
   useEffect(() => {
     //Update the document title using the browser API
     document.title = `You  clicked ${state.number} times`;
-  });
+    db.collection('beverageList').get().then((querySnapshot) => {
+      const beverageItems = []
+      querySnapshot.forEach(doc => {
+        beverageItems.push(Object.assign({ id: doc.id, ...doc.data()}))
+      })
+      dispatch({type: 'BEVERAGE_LIST', payload: beverageItems})
+    })
+  }, {db});
 
   return (
     <DispatchContext.Provider value={dispatch}>
@@ -77,6 +80,12 @@ const App = () => {
           <p>You clicked {state.number} times </p>
           <NumberStepper />
         </div>
+        {console.log(state.BeverageList)}
+        {state.BeverageList.map(beverageItem => {
+          return(
+            <li>{beverageItem.BeverageName} {beverageItem.BeverageType}  £ {beverageItem.BeveragePrice}</li>
+          )
+        })}
       </StateContext.Provider>
     </DispatchContext.Provider>
   )

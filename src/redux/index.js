@@ -2,7 +2,8 @@ export const initialState = {
     number: 0,
     BeverageName: '',
     BeveragePrice: 0,
-    BeverageType: ''
+    BeverageType: '',
+    BeverageList: []
 }
 
 export const reducer = (state, action) => {
@@ -33,6 +34,11 @@ export const reducer = (state, action) => {
                 BeverageName: '',
                 BeveragePrice: 0,
                 BeverageType: ''
+            }
+        case 'BEVERAGE_LIST': 
+            return {
+                ...state,
+                BeverageList: [...action.payload]
             }
         default:
             return state
