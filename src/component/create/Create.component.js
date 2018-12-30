@@ -1,12 +1,14 @@
 import React, { useReducer } from 'react';
 import firebase from '../../firebase';
+import { Link } from 'react-router-dom';
 import { initialState, reducer } from '../../redux';
 
 const Create = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
     const db = firebase.firestore();
-
+    db.settings({ timestampsInSnapshots: true });
+    
     const updateInput = e => {
         dispatch({
             type: 'BEVEREAGE_FORM_STATE',
@@ -52,6 +54,7 @@ const Create = () => {
                 />
                 <button type="submit">Submit</button>
             </form>
+            <h4><Link to='/'>Done</Link></h4>
         </div>
     )
 }
