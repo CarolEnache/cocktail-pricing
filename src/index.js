@@ -15,7 +15,7 @@ ReactDOM.render(
         <div>
             <Route exact path='/' component={App} />
             <Route path='/create' component={Create} />
-            <Route path='/edit/:id' component={Edit} />
+            <Route path='/edit/' component={Edit} />
             <Route path='/show/:id' component={Show} />
         </div>
     </Router>,
