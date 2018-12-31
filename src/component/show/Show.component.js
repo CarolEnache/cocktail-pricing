@@ -10,7 +10,6 @@ const Show = () => {
     const getData = () => ref.get().then((querySnapshot) => {
         const beverageItems = []
         querySnapshot.forEach(doc => {
-            // console.log(doc.data())
             beverageItems.push(Object.assign({ id: doc.id, ...doc.data() }))
         })
         dispatch({ type: 'BEVERAGE_LIST', payload: beverageItems })
