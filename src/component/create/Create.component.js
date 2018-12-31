@@ -8,7 +8,7 @@ const Create = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const db = firebase.firestore();
     db.settings({ timestampsInSnapshots: true });
-    
+
     const updateInput = e => {
         dispatch({
             type: 'BEVEREAGE_FORM_STATE',
@@ -23,8 +23,11 @@ const Create = () => {
             BeverageName: state.BeverageName,
             BeveragePrice: state.BeveragePrice,
             BeverageType: state.BeverageType
+        }).then(() => {
+            dispatch({ type: 'BEVERAGE_FORM_SUBMIT' });
+        }).catch((error) => {
+            console.error('Error adding document: ', error)
         })
-        dispatch({ type: 'BEVERAGE_FORM_SUBMIT' });
     }
 
     return (
