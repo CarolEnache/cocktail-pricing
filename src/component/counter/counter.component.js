@@ -1,9 +1,8 @@
 import React, { useContext} from 'react';
-import { StateContext, DispatchContext } from '../../App';
+import { DispatchContext } from '../../App';
 import { initialState } from '../../redux';
 
 const NumberStepper = () => {
-    const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
 
     const plus = () => {

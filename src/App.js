@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { initialState, reducer } from './redux';
 import NumberStepper from './component/counter';
 import Show from './component/show';
-
 export const StateContext = createContext(initialState);
 export const DispatchContext = createContext();
 

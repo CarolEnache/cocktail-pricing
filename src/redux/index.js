@@ -1,5 +1,6 @@
 export const initialState = {
     number: 0,
+    toggleState: false,
     BeverageName: '',
     BeveragePrice: 0,
     BeverageType: '',
@@ -39,6 +40,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 BeverageList: [...action.payload]
+            }
+        case 'TOGGLE_STATE':
+            return {
+                ...state,
+                toggleState: action.payload
             }
         default:
             return state
