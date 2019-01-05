@@ -1,13 +1,18 @@
-export const initialState = {
+import { sendToFirestore } from './db';
+export const initialState = 
+{
     number: 0,
     toggleState: false,
     BeverageName: '',
     BeveragePrice: 0,
     BeverageType: '',
-    BeverageList: []
+    BeverageList: [],
+    selecetedItemId: ''
 }
 
+
 export const reducer = (state, action) => {
+
     switch(action.type) {
         case 'INCREMENT_NUMBER':
             return {
@@ -29,13 +34,16 @@ export const reducer = (state, action) => {
                 ...state,
                 [action.name]: action.payload
             }
-        case 'BEVERAGE_FORM_SUBMIT':
+        case 'ADD_BEVERAGE':
+            sendToFirestore('beverageList', action.payload);
             return {
                 ...state,
                 BeverageName: '',
                 BeveragePrice: 0,
                 BeverageType: ''
-            }
+            };
+        case 'FETCH_BEVERAGE_LIST':
+            
         case 'BEVERAGE_LIST': 
             return {
                 ...state,
@@ -45,6 +53,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 toggleState: action.payload
+            }
+        case 'SELECTED_ITEM_ID':
+            return {
+                ...state,
+                selecetedItemId: action.payload
             }
         default:
             return state

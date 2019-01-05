@@ -10,15 +10,16 @@ export const StateContext = createContext(initialState);
 export const DispatchContext = createContext();
 
 const App = () => {
+
     const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
         <DispatchContext.Provider value={dispatch}>
             <StateContext.Provider value={state}>
-                <div>
+                {<div>
                     <p>You clicked {state.number} times </p>
                     <NumberStepper />
-                </div>
+                </div> }
                 <h4><Link to='/create'>Add New Item</Link></h4>
                 <Show />
             </StateContext.Provider>

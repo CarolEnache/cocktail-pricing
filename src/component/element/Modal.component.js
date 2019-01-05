@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Portal from '../../portal';
+import Edit from '../edit';
+
 import './style.css';
 
-const Modal = (props) => {
+class Modal extends Component {
 
-    return (
-        <Portal>
-            <div className='modal-wrapper' onClick={props.onClose}>
-                <div className='modal-content'>
-                    <h1>Hello from the Modal Modal</h1>
-                    <button onClick={props.onClose}>x</button>
+
+    render(){
+        console.log(this.props.id)
+
+        return (
+            <Portal>
+                <div className='modal-wrapper'>
+                    <div className='modal-content'>
+                        <Edit id={this.props.id} />
+                        <button onClick={this.props.onClose}>CANCEL</button>
+                    </div>
                 </div>
-            </div>
-        </Portal>
-    )
+            </Portal>
+        )
+    }
 }
 
 export default Modal;

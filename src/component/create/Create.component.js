@@ -3,10 +3,12 @@ import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import { initialState, reducer } from '../../redux';
 
+const db = firebase.firestore();
+
 const Create = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-    const db = firebase.firestore();
+
     db.settings({ timestampsInSnapshots: true });
 
     const updateInput = e => {
@@ -18,16 +20,15 @@ const Create = () => {
     }
 
     const addBeverage = (e) => {
-        e.preventDefault()
-        db.collection('beverageList').add({
-            BeverageName: state.BeverageName,
-            BeveragePrice: state.BeveragePrice,
-            BeverageType: state.BeverageType
-        }).then(() => {
-            dispatch({ type: 'BEVERAGE_FORM_SUBMIT' });
-        }).catch((error) => {
-            console.error('Error adding document: ', error)
-        })
+        e.preventDefault();
+        dispatch({
+            type: 'ADD_BEVERAGE',
+            payload: {
+                BeverageName: state.BeverageName,
+                BeveragePrice: state.BeveragePrice,
+                BeverageType: state.BeverageType
+            }
+        });
     }
 
     return (
