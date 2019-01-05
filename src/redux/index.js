@@ -1,4 +1,4 @@
-import { sendToFirestore } from './db';
+import { sendToFirestore, updateFirestore } from './db';
 export const initialState = 
 {
     number: 0,
@@ -7,7 +7,7 @@ export const initialState =
     BeveragePrice: 0,
     BeverageType: '',
     BeverageList: [],
-    selecetedItemId: ''
+    selectedItemId: null
 }
 
 
@@ -41,9 +41,21 @@ export const reducer = (state, action) => {
                 BeverageName: '',
                 BeveragePrice: 0,
                 BeverageType: ''
-            };
-        case 'FETCH_BEVERAGE_LIST':
-            
+            }
+        case 'UPDATE_BEVERAGE':
+            updateFirestore('beverageList', action.payload.id, action.payload, action.payload.item);
+            return {
+                ...state,
+                BeverageList: [
+                    action.payload.item,
+                    ...state.BeverageList.filter(b => b.id != action.payload.id),
+                ]
+            }
+        case 'SET_BEVERAGE_LIST':
+            return {
+                ...state,
+                BeverageList: [...action.payload]
+            }
         case 'BEVERAGE_LIST': 
             return {
                 ...state,
@@ -57,7 +69,7 @@ export const reducer = (state, action) => {
         case 'SELECTED_ITEM_ID':
             return {
                 ...state,
-                selecetedItemId: action.payload
+                selectedItemId: action.payload
             }
         default:
             return state

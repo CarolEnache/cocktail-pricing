@@ -1,37 +1,54 @@
-import React,{ useReducer } from 'react';
-import firebase from '../../firebase';
-import { initialState, reducer } from '../../redux';
+import React,{ useContext, useState } from 'react';
+import { StateContext, DispatchContext } from '../../App';
 
-const Edit = (props) => {
+const Edit = () => {
 
-    const [state, dispatch] = useReducer(reducer, initialState)
-    console.log(props)
+    const state = useContext(StateContext);
+    const dispatch = useContext(DispatchContext);
+
+    const item = state.BeverageList.find(bev => bev.id == state.selectedItemId);
+
+    const [formValues, setFormValues] = useState(item);
+
+    console.log(formValues);
     const editBeverage = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        dispatch({ 
+            type: 'UPDATE_BEVERAGE', 
+            payload: {
+                id: item.id,
+                item: formValues
+            } 
+        });
+        dispatch({ type: 'SELECTED_ITEM_ID', payload: null });
     }
+
     return (
         <div>
             <h1>Edit your item here:</h1>
             <form onSubmit={(e) => editBeverage(e)}>
                 <label htmlFor="BeverageName">
-                    some name
+                    Name
                 </label>
                 <input 
                     type="text" 
-                    name="BeverageName" 
-                    value='test value '
+                    name="BeverageName"
+                    onChange={(e) => setFormValues({ ...formValues, BeverageName: e.target.value })}
+                    value={formValues.BeverageName}
                 />
-                <label htmlFor="BeveragePrice">£100.00</label>
+                <label htmlFor="BeveragePrice">Price</label>
                 <input 
                     type="number" 
                     name="BeveragePrice" 
-                    value='test value '
+                    onChange={(e) => setFormValues({ ...formValues, BeveragePrice: e.target.value })}
+                    value={formValues.BeveragePrice}
                 />
-                <label htmlFor="BeverageType">Vodka</label>
+                <label htmlFor="BeverageType">Type</label>
                 <input 
                     type="text" 
                     name="BeverageType" 
-                    value='test value '
+                    onChange={(e) => setFormValues({ ...formValues, BeverageType: e.target.value })}
+                    value={formValues.BeverageType}
                 />
                 <button type="submit">SUBMIT</button>
             </form>
