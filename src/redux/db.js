@@ -1,34 +1,35 @@
 import firebase from '../firebase';
+
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
 
-
-export const sendToFirestore = (collection, object) => {
+export const createFirestoreItem = (collection, item) => {
     try {
-        db.collection(collection).add(object);
+        db.collection(collection).add(item);
     }
     catch(e) {
         console.error(e);
     }
 };
 
-export const updateFirestore = (collection, id, object) => {
+export const updateFirestoreItem = (collection, item) => {
     try {
-        db.collection(collection).doc(id).update(object);
+        const { id, ...dbObj } = item;
+        db.collection(collection).doc(id).update(dbObj);
     }
     catch (e) {
         console.error(e);
     }
 };
 
-export const fetchFromFirestore = async (collection) => {
+export const getFirestoreItems = async (collection) => {
+    
+    const response = await db.collection(collection).get();
     let output = [];
-    const result = await db.collection(collection).get();
-    result.forEach(doc => {
-        output.push(Object.assign({ id: doc.id, ...doc.data() }))
-    })
 
-    console.log(output);
-
+    response.forEach(doc => {
+        output = [...output, Object.assign({ id: doc.id, ...doc.data() }) ];
+    });
+    
     return output;
 }

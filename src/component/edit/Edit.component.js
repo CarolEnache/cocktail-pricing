@@ -6,21 +6,14 @@ const Edit = () => {
     const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
 
-    const item = state.BeverageList.find(bev => bev.id == state.selectedItemId);
+    const item = state.beverages.find(bev => bev.id == state.editingBeverage);
 
     const [formValues, setFormValues] = useState(item);
 
-    console.log(formValues);
     const editBeverage = (e) => {
+        dispatch({ type: 'UPDATE_BEVERAGE', payload: formValues });
+        dispatch({ type: 'CANCEL_EDIT_BEVERAGE' });
         e.preventDefault();
-        dispatch({ 
-            type: 'UPDATE_BEVERAGE', 
-            payload: {
-                id: item.id,
-                item: formValues
-            } 
-        });
-        dispatch({ type: 'SELECTED_ITEM_ID', payload: null });
     }
 
     return (

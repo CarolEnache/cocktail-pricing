@@ -9,8 +9,6 @@ const Create = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    db.settings({ timestampsInSnapshots: true });
-
     const updateInput = e => {
         dispatch({
             type: 'BEVEREAGE_FORM_STATE',

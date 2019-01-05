@@ -1,4 +1,4 @@
-import { sendToFirestore, updateFirestore } from './db';
+import { createFirestoreItem, updateFirestoreItem } from './db';
 export const initialState = 
 {
     number: 0,
@@ -6,8 +6,8 @@ export const initialState =
     BeverageName: '',
     BeveragePrice: 0,
     BeverageType: '',
-    BeverageList: [],
-    selectedItemId: null
+    beverages: [],
+    editingBeverage: null
 }
 
 
@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
         case 'DECREMENT_NUMBER':
             return {
                 ...state,
-                number:state.number -1
+                number: state.number -1
             }
         case 'RESET_VALUE':
             return {
@@ -35,7 +35,7 @@ export const reducer = (state, action) => {
                 [action.name]: action.payload
             }
         case 'ADD_BEVERAGE':
-            sendToFirestore('beverageList', action.payload);
+            createFirestoreItem('beverageList', action.payload);
             return {
                 ...state,
                 BeverageName: '',
@@ -43,33 +43,33 @@ export const reducer = (state, action) => {
                 BeverageType: ''
             }
         case 'UPDATE_BEVERAGE':
-            updateFirestore('beverageList', action.payload.id, action.payload, action.payload.item);
+            updateFirestoreItem('beverageList', action.payload);
             return {
                 ...state,
-                BeverageList: [
-                    action.payload.item,
-                    ...state.BeverageList.filter(b => b.id != action.payload.id),
+                beverages: [
+                    action.payload,
+                    ...state.beverages.filter(b => b.id != action.payload.id),
                 ]
             }
         case 'SET_BEVERAGE_LIST':
             return {
                 ...state,
-                BeverageList: [...action.payload]
-            }
-        case 'BEVERAGE_LIST': 
-            return {
-                ...state,
-                BeverageList: [...action.payload]
+                beverages: [...action.payload]
             }
         case 'TOGGLE_STATE':
             return {
                 ...state,
                 toggleState: action.payload
             }
-        case 'SELECTED_ITEM_ID':
+        case 'EDIT_BEVERAGE':
             return {
                 ...state,
-                selectedItemId: action.payload
+                editingBeverage: action.payload
+            }
+        case 'CANCEL_EDIT_BEVERAGE':
+            return {
+                ...state,
+                editingBeverage: undefined
             }
         default:
             return state

@@ -6,25 +6,25 @@ const Show = () => {
     
     const state    = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
+    const editing  = !!state.editingBeverage;
 
     const deleteItem = (id) => {
         
     }
 
     const editItem = (id) => {
-        //dispatch({ type: 'TOGGLE_STATE', payload: !state.toggleState });
-        dispatch({ type: 'SELECTED_ITEM_ID', payload: id });
+        dispatch({ type: 'EDIT_BEVERAGE', payload: id });
     }
     
     const handleToggle = ( ) => {
-        //dispatch({ type: 'TOGGLE_STATE', payload: !state.toggleState })
+
     }
 
     return (
         <div>
             <h1>Hello from the Show Component</h1>
-            {state.selectedItemId !== null && (<Modal onClose={handleToggle} ></Modal>)}
-            {state.BeverageList.map(beverageItem => {
+            {editing && (<Modal onClose={handleToggle} ></Modal>)}
+            {state.beverages.map(beverageItem => {
                 return (
                     <div key={beverageItem.id} id={beverageItem.id}>
                         <li>{beverageItem.BeverageName} {beverageItem.BeverageType} £ {beverageItem.BeveragePrice}</li>

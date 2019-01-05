@@ -6,7 +6,7 @@ import React, {
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { initialState, reducer } from './redux';
-import { fetchFromFirestore } from './redux/db';
+import { getFirestoreItems } from './redux/db';
 import Create from './component/create';
 import Edit from './component/edit';
 import Show from './component/show';
@@ -18,8 +18,8 @@ const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(async () => {
-        const beverageList = await fetchFromFirestore('beverageList');
-        dispatch({ type: 'SET_BEVERAGE_LIST', payload: beverageList });
+        const beverages = await getFirestoreItems('beverageList');
+        dispatch({ type: 'SET_BEVERAGE_LIST', payload: beverages });
     }, { state });
 
     return (
