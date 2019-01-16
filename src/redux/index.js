@@ -1,6 +1,5 @@
-import { createFirestoreItem, updateFirestoreItem } from './db';
-export const initialState = 
-{
+import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem} from './db';
+export const initialState = {
     number: 0,
     toggleState: false,
     BeverageName: '',
@@ -10,25 +9,9 @@ export const initialState =
     editingBeverage: null
 }
 
-
 export const reducer = (state, action) => {
 
     switch(action.type) {
-        case 'INCREMENT_NUMBER':
-            return {
-                ...state,
-                number: state.number + 1
-            }
-        case 'DECREMENT_NUMBER':
-            return {
-                ...state,
-                number: state.number -1
-            }
-        case 'RESET_VALUE':
-            return {
-                ...state,
-                number: action.payload
-            }
         case 'BEVEREAGE_FORM_STATE':
             return {
                 ...state,
@@ -48,7 +31,7 @@ export const reducer = (state, action) => {
                 ...state,
                 beverages: [
                     action.payload,
-                    ...state.beverages.filter(b => b.id != action.payload.id),
+                    ...state.beverages.filter(b => b.id !== action.payload.id),
                 ]
             }
         case 'SET_BEVERAGE_LIST':
@@ -69,7 +52,12 @@ export const reducer = (state, action) => {
         case 'CANCEL_EDIT_BEVERAGE':
             return {
                 ...state,
-                editingBeverage: undefined
+                editingBeverage: null
+            }
+        case 'DELETE_BEVERAGE':
+            deleteFirestoreItem('beverageList', action.payload)
+            return {
+                ...state
             }
         default:
             return state

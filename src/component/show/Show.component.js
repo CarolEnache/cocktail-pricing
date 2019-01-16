@@ -1,28 +1,35 @@
 import React, {  useContext } from 'react';
+import { Link } from 'react-router-dom';
+
 import { StateContext, DispatchContext } from '../../App';
 import Modal from '../element';
 
+import { checkSnapchat } from '../../redux/db';
+
 const Show = () => {
-    
     const state    = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
-    const editing  = !!state.editingBeverage;
+    let editing  = !!state.editingBeverage;
 
     const deleteItem = (id) => {
-        
+        dispatch({ type: 'DELETE_BEVERAGE', payload: id })
     }
 
     const editItem = (id) => {
+        checkSnapchat('beverageList', id)
         dispatch({ type: 'EDIT_BEVERAGE', payload: id });
     }
     
     const handleToggle = ( ) => {
-
+        dispatch({ type: 'CANCEL_EDIT_BEVERAGE' });
     }
+
+    console.log(state.beverages)
 
     return (
         <div>
             <h1>Hello from the Show Component</h1>
+            <h4><Link to='/create'>Add More Items</Link></h4>
             {editing && (<Modal onClose={handleToggle} ></Modal>)}
             {state.beverages.map(beverageItem => {
                 return (
@@ -38,10 +45,3 @@ const Show = () => {
 }
 
 export default Show;
-/**
- * TODOS:
- * 1 UPDATE EXISTANT DOCUMENTS IN THE DB =====DONE======
- * 2 CREATE THE TOGGLE COMPONENT === NOT NEEDED
- * 3 CREATE THE PORTAL =====DONE========
- * 4 CREATE THE MODAL =====DONE=====
- */
