@@ -9,7 +9,6 @@ export const initialState = {
     editingBeverage: null
 }
 
-
 export const reducer = (state, action) => {
 
     switch(action.type) {

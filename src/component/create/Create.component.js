@@ -2,10 +2,10 @@ import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { initialState, reducer } from '../../redux';
 
+
 const Create = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
-
     const updateInput = e => {
         dispatch({
             type: 'BEVEREAGE_FORM_STATE',
