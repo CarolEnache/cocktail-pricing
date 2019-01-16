@@ -33,3 +33,23 @@ export const getFirestoreItems = async (collection) => {
     
     return output;
 }
+
+export const deleteFirestoreItem = (collection, item) => {
+    try {
+        db.collection(collection).doc(item).delete();
+    }
+    catch (e) {
+        console.error(e);
+    }
+}
+
+export const checkSnapchat = (collection, item) => {
+    try {
+        db.collection(collection).doc(item).onSnapshot((doc) => {
+            console.log('current data: ', doc.data());
+        })
+    }
+    catch (e) {
+        console.log(e)
+    }
+}

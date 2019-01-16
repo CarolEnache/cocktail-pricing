@@ -6,7 +6,7 @@ const Edit = () => {
     const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
 
-    const item = state.beverages.find(bev => bev.id == state.editingBeverage);
+    const item = state.beverages.find(bev => bev.id === state.editingBeverage);
 
     const [formValues, setFormValues] = useState(item);
 

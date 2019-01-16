@@ -1,9 +1,6 @@
 import React, { useReducer } from 'react';
-import firebase from '../../firebase';
 import { Link } from 'react-router-dom';
 import { initialState, reducer } from '../../redux';
-
-const db = firebase.firestore();
 
 const Create = () => {
 

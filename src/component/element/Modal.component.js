@@ -6,10 +6,7 @@ import './style.css';
 
 class Modal extends Component {
 
-
     render(){
-        console.log(this.props.id)
-
         return (
             <Portal>
                 <div className='modal-wrapper'>
