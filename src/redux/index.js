@@ -57,7 +57,10 @@ export const reducer = (state, action) => {
         case 'DELETE_BEVERAGE':
             deleteFirestoreItem('beverageList', action.payload)
             return {
-                ...state
+                ...state,
+                beverages: [
+                    ...state.beverages
+                ]
             }
         default:
             return state

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { StateContext, DispatchContext } from '../../App';
 import Modal from '../element';
 
-import { checkSnapchat } from '../../redux/db';
 
 const Show = () => {
     const state    = useContext(StateContext);
@@ -16,7 +15,6 @@ const Show = () => {
     }
 
     const editItem = (id) => {
-        checkSnapchat('beverageList', id)
         dispatch({ type: 'EDIT_BEVERAGE', payload: id });
     }
     
@@ -24,7 +22,6 @@ const Show = () => {
         dispatch({ type: 'CANCEL_EDIT_BEVERAGE' });
     }
 
-    console.log(state.beverages)
 
     return (
         <div>

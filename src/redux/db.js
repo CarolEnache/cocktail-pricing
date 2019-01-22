@@ -30,9 +30,22 @@ export const getFirestoreItems = async (collection) => {
     response.forEach(doc => {
         output = [...output, Object.assign({ id: doc.id, ...doc.data() }) ];
     });
-    
     return output;
 }
+
+export const listenToDB = async (collection) => {
+    db.collection(collection).onSnapshot(snapshot => {
+        const bvList = {
+            ceva: snapshot.docs.map(doc => ({
+                ...doc.data(),
+                id: doc.id
+            }))
+        };
+        console.log(bvList.ceva, 'bvList')
+        return bvList.ceva;
+    });
+};
+
 
 export const deleteFirestoreItem = (collection, item) => {
     try {
@@ -52,4 +65,12 @@ export const checkSnapchat = (collection, item) => {
     catch (e) {
         console.log(e)
     }
+}
+
+export const itemOnChange = (collection) => {
+    db.collection(collection).onSnapshot((snapshot) => {
+        snapshot.docChange().forEach((change) => {
+            console.log(change.doc.data(), change.type)
+        })
+    });
 }
