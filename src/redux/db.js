@@ -33,23 +33,20 @@ export const getFirestoreItems = async (collection) => {
     return output;
 }
 
-export const listenToDB = async (collection) => {
-    let ceva = [];
-    console.log(collection)
-    return await db.collection(collection).onSnapshot(snapshot => {
-        const bvList = {
-            ceva: snapshot.docs.map(doc => ({
+export const listenToDB = (collection) => {
+    let bvList;
+    db.collection(collection).onSnapshot(snapshot => {
+        bvList = {
+            beverageList: snapshot.docs.map(doc => ({
                 ...doc.data(),
                 id: doc.id
             }))
-
         };
-        console.log(bvList)
-        return [...ceva, bvList]
+        console.log(bvList, 'bvList')
     });
-    console.log(ceva, 'din db')
-};
-
+    console.log(bvList, 'bvList')
+    return bvList;
+}
 
 export const deleteFirestoreItem = (collection, item) => {
     try {

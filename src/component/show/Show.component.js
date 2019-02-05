@@ -22,13 +22,13 @@ const Show = () => {
         dispatch({ type: 'CANCEL_EDIT_BEVERAGE' });
     }
 
-
+    console.log(state)
     return (
         <div>
             <h1>Hello from the Show Component</h1>
             <h4><Link to='/create'>Add More Items</Link></h4>
             {editing && (<Modal onClose={handleToggle} ></Modal>)}
-            {state.beverages.map(beverageItem => {
+            {state.beverages.forEach(beverageItem => {
                 return (
                     <div key={beverageItem.id} id={beverageItem.id}>
                         <li>{beverageItem.BeverageName} {beverageItem.BeverageType} £ {beverageItem.BeveragePrice}</li>

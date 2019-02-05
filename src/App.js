@@ -4,6 +4,7 @@ import React, {
     useEffect
     } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import firebase from './firebase';
 
 import { initialState, reducer } from './redux';
 import { getFirestoreItems, listenToDB } from './redux/db';
@@ -13,19 +14,27 @@ import Edit from './component/edit';
 import Show from './component/show';
 import Play from './component/playground';
 
+const db = firebase.firestore();
+db.settings({ timestampsInSnapshots: true });
 
 
 const App = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    useEffect(async () => {
-        const beverages = await getFirestoreItems('beverageList');
-        const updated = await listenToDB('beverageList');
-        console.log(updated, 'updated', beverages, 'beverages');
-        dispatch({ type: 'SET_BEVERAGE_LIST', payload: beverages });
+    useEffect(() => {
+        db.collection('beverageList').onSnapshot(snapshot => {
+            const bvList = {
+                beverageList: snapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    id: doc.id
+                }))
+            };
+            console.log(bvList)
+            dispatch({ type: 'SET_BEVERAGE_LIST', payload: bvList });
+        });
     }, { state });
-
+    console.log(state)
     return (
         <DispatchContext.Provider value={dispatch}>
             <StateContext.Provider value={state}>

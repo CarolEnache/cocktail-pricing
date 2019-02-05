@@ -37,7 +37,7 @@ export const reducer = (state, action) => {
         case 'SET_BEVERAGE_LIST':
             return {
                 ...state,
-                beverages: [...action.payload]
+                beverages: action.payload
             }
         case 'TOGGLE_STATE':
             return {
