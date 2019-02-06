@@ -31,13 +31,13 @@ export const reducer = (state, action) => {
                 ...state,
                 beverages: [
                     action.payload,
-                    ...state.beverages.filter(b => b.id !== action.payload.id),
+                    ...state.beverages.beverageList.filter(b => b.id !== action.payload.id),
                 ]
             }
         case 'SET_BEVERAGE_LIST':
             return {
                 ...state,
-                beverages: [...action.payload]
+                beverages: action.payload
             }
         case 'TOGGLE_STATE':
             return {
@@ -57,7 +57,10 @@ export const reducer = (state, action) => {
         case 'DELETE_BEVERAGE':
             deleteFirestoreItem('beverageList', action.payload)
             return {
-                ...state
+                ...state,
+                beverages: [
+                    state.beverages
+                ]
             }
         default:
             return state
