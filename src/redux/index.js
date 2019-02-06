@@ -31,7 +31,7 @@ export const reducer = (state, action) => {
                 ...state,
                 beverages: [
                     action.payload,
-                    ...state.beverages.filter(b => b.id !== action.payload.id),
+                    ...state.beverages.beverageList.filter(b => b.id !== action.payload.id),
                 ]
             }
         case 'SET_BEVERAGE_LIST':
@@ -59,7 +59,7 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 beverages: [
-                    ...state.beverages
+                    state.beverages
                 ]
             }
         default:

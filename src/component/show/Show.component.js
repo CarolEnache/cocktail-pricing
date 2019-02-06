@@ -6,6 +6,7 @@ import Modal from '../element';
 
 
 const Show = () => {
+    debugger
     const state    = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
     let editing  = !!state.editingBeverage;
@@ -21,14 +22,14 @@ const Show = () => {
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_EDIT_BEVERAGE' });
     }
-
-    console.log(state)
+    debugger
     return (
         <div>
             <h1>Hello from the Show Component</h1>
             <h4><Link to='/create'>Add More Items</Link></h4>
             {editing && (<Modal onClose={handleToggle} ></Modal>)}
-            {state.beverages.forEach(beverageItem => {
+            {/*console.log(state.beverages.beverageList)*/}
+            { state.beverages.beverageList && state.beverages.beverageList.map(beverageItem => {
                 return (
                     <div key={beverageItem.id} id={beverageItem.id}>
                         <li>{beverageItem.BeverageName} {beverageItem.BeverageType} £ {beverageItem.BeveragePrice}</li>

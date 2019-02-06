@@ -30,11 +30,9 @@ const App = () => {
                     id: doc.id
                 }))
             };
-            console.log(bvList)
             dispatch({ type: 'SET_BEVERAGE_LIST', payload: bvList });
         });
     }, { state });
-    console.log(state)
     return (
         <DispatchContext.Provider value={dispatch}>
             <StateContext.Provider value={state}>
