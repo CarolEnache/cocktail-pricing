@@ -4,11 +4,9 @@ import React, {
     useEffect
     } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import firebase from './firebase';
-
 import { initialState, reducer } from './redux';
-import { getFirestoreItems, listenToDB } from './redux/db';
-
 import Create from './component/create';
 import Edit from './component/edit';
 import Show from './component/show';
@@ -19,9 +17,7 @@ db.settings({ timestampsInSnapshots: true });
 
 
 const App = () => {
-
     const [state, dispatch] = useReducer(reducer, initialState);
-
     useEffect(() => {
         db.collection('beverageList').onSnapshot(snapshot => {
             const bvList = {

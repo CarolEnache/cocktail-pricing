@@ -1,5 +1,6 @@
 import React, {  useContext } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 import { StateContext, DispatchContext } from '../../App';
 import Modal from '../element';
@@ -24,22 +25,27 @@ const Show = () => {
     }
     debugger
     return (
-        <div>
+        <Container>
             <h1>Hello from the Show Component</h1>
             <h4><Link to='/create'>Add More Items</Link></h4>
             {editing && (<Modal onClose={handleToggle} ></Modal>)}
-            {/*console.log(state.beverages.beverageList)*/}
+            <ul>
             { state.beverages.beverageList && state.beverages.beverageList.map(beverageItem => {
                 return (
-                    <div key={beverageItem.id} id={beverageItem.id}>
-                        <li>{beverageItem.BeverageName} {beverageItem.BeverageType} £ {beverageItem.BeveragePrice}</li>
+                    <li key={beverageItem.id} id={beverageItem.id}>
+                        <p>{beverageItem.BeverageName} {beverageItem.BeverageType} £ {beverageItem.BeveragePrice}</p>
                         <button onClick={() => deleteItem(beverageItem.id)}>Delete</button>
                         <button onClick={() => editItem(beverageItem.id)}>Edit</button>
-                    </div>
+                    </li>
                 )
             })}
-        </div>
+            </ul>
+        </Container>
     )
 }
+
+const Container = styled.div`
+    text-align: center;
+`
 
 export default Show;
