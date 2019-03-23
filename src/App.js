@@ -1,5 +1,5 @@
 import React, {
-    createContext, 
+    createContext,
     useReducer,
     useEffect
     } from 'react';
@@ -19,13 +19,14 @@ db.settings({ timestampsInSnapshots: true });
 const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     useEffect(() => {
-        db.collection('beverageList').onSnapshot(snapshot => {
+        db.collection('ingredientsList').onSnapshot(snapshot => {
             const bvList = {
-                beverageList: snapshot.docs.map(doc => ({
+                ingredientsList: snapshot.docs.map(doc => ({
                     ...doc.data(),
                     id: doc.id
                 }))
             };
+            console.log(bvList)
             dispatch({ type: 'SET_BEVERAGE_LIST', payload: bvList });
         });
     }, { state });

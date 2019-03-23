@@ -1,12 +1,12 @@
 import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem} from './db';
 export const initialState = {
-    number: 0,
+    // number: 0,
     toggleState: false,
-    BeverageName: '',
-    BeveragePrice: 0,
-    BeverageType: '',
-    beverages: [],
-    editingBeverage: null
+    ingredientName: '',
+    ingredientPrice: 0,
+    ingredientPackSize: '',
+    ingredients: [],
+    updateIngredient: null
 }
 
 export const reducer = (state, action) => {
@@ -18,26 +18,26 @@ export const reducer = (state, action) => {
                 [action.name]: action.payload
             }
         case 'ADD_BEVERAGE':
-            createFirestoreItem('beverageList', action.payload);
+            createFirestoreItem('ingredientsList', action.payload);
             return {
                 ...state,
-                BeverageName: '',
-                BeveragePrice: 0,
-                BeverageType: ''
+                ingredientName: '',
+                ingredientPrice: 0,
+                ingredientPackSize: ''
             }
         case 'UPDATE_BEVERAGE':
-            updateFirestoreItem('beverageList', action.payload);
+            updateFirestoreItem('ingredientsList', action.payload);
             return {
                 ...state,
-                beverages: [
+                ingredients: [
                     action.payload,
-                    ...state.beverages.beverageList.filter(b => b.id !== action.payload.id),
+                    ...state.ingredients.ingredientsList.filter(b => b.id !== action.payload.id),
                 ]
             }
         case 'SET_BEVERAGE_LIST':
             return {
                 ...state,
-                beverages: action.payload
+                ingredients: action.payload
             }
         case 'TOGGLE_STATE':
             return {
@@ -47,19 +47,19 @@ export const reducer = (state, action) => {
         case 'EDIT_BEVERAGE':
             return {
                 ...state,
-                editingBeverage: action.payload
+                updateIngredient: action.payload
             }
         case 'CANCEL_EDIT_BEVERAGE':
             return {
                 ...state,
-                editingBeverage: null
+                updateIngredient: null
             }
         case 'DELETE_BEVERAGE':
-            deleteFirestoreItem('beverageList', action.payload)
+            deleteFirestoreItem('ingredientsList', action.payload)
             return {
                 ...state,
-                beverages: [
-                    state.beverages
+                ingredients: [
+                    state.ingredients
                 ]
             }
         default:

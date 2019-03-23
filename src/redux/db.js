@@ -23,13 +23,13 @@ export const updateFirestoreItem = (collection, item) => {
 };
 
 export const getFirestoreItems = async (collection) => {
-    
     const response = await db.collection(collection).get();
     let output = [];
 
     response.forEach(doc => {
         output = [...output, { id: doc.id, ...doc.data() }];
     });
+    console.log(output, 'output')
     return output;
 }
 
@@ -37,7 +37,7 @@ export const listenToDB = (collection) => {
     let bvList;
     db.collection(collection).onSnapshot(snapshot => {
         bvList = {
-            beverageList: snapshot.docs.map(doc => ({
+            ingredientsList: snapshot.docs.map(doc => ({
                 ...doc.data(),
                 id: doc.id
             }))

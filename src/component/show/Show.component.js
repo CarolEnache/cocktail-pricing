@@ -7,10 +7,9 @@ import Modal from '../element';
 
 
 const Show = () => {
-    debugger
-    const state    = useContext(StateContext);
+    const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
-    let editing  = !!state.editingBeverage;
+    let editing = !!state.updateIngredient;
 
     const deleteItem = (id) => {
         dispatch({ type: 'DELETE_BEVERAGE', payload: id })
@@ -19,21 +18,19 @@ const Show = () => {
     const editItem = (id) => {
         dispatch({ type: 'EDIT_BEVERAGE', payload: id });
     }
-    
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_EDIT_BEVERAGE' });
     }
-    debugger
     return (
         <Container>
             <h1>Hello from the Show Component</h1>
             <h4><Link to='/create'>Add More Items</Link></h4>
             {editing && (<Modal onClose={handleToggle} ></Modal>)}
             <ul>
-            { state.beverages.beverageList && state.beverages.beverageList.map(beverageItem => {
+            { state.ingredients.ingredientsList && state.ingredients.ingredientsList.map(beverageItem => {
                 return (
                     <li key={beverageItem.id} id={beverageItem.id}>
-                        <p>{beverageItem.BeverageName} {beverageItem.BeverageType} £ {beverageItem.BeveragePrice}</p>
+                        <p>{beverageItem.ingredientName} {beverageItem.ingredientPackSize} £ {beverageItem.ingredientPrice}</p>
                         <button onClick={() => deleteItem(beverageItem.id)}>Delete</button>
                         <button onClick={() => editItem(beverageItem.id)}>Edit</button>
                     </li>

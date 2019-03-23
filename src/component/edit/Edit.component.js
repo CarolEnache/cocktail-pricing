@@ -6,7 +6,7 @@ const Edit = () => {
     const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
 
-    const item = state.beverages.beverageList.find(bev => bev.id === state.editingBeverage);
+    const item = state.ingredients.ingredientsList.find(bev => bev.id === state.updateIngredient);
 
     const [formValues, setFormValues] = useState(item);
 
@@ -20,28 +20,28 @@ const Edit = () => {
         <div>
             <h1>Edit your item here:</h1>
             <form onSubmit={(e) => editBeverage(e)}>
-                <label htmlFor="BeverageName">
+                <label htmlFor="ingredientName">
                     Name
                 </label>
-                <input 
-                    type="text" 
-                    name="BeverageName"
-                    onChange={(e) => setFormValues({ ...formValues, BeverageName: e.target.value })}
-                    value={formValues.BeverageName}
+                <input
+                    type="text"
+                    name="ingredientName"
+                    onChange={(e) => setFormValues({ ...formValues, ingredientName: e.target.value })}
+                    value={formValues.ingredientName}
                 />
-                <label htmlFor="BeveragePrice">Price</label>
-                <input 
-                    type="number" 
-                    name="BeveragePrice" 
-                    onChange={(e) => setFormValues({ ...formValues, BeveragePrice: e.target.value })}
-                    value={formValues.BeveragePrice}
+                <label htmlFor="ingredientPrice">Price</label>
+                <input
+                    type="number"
+                    name="ingredientPrice"
+                    onChange={(e) => setFormValues({ ...formValues, ingredientPrice: e.target.value })}
+                    value={formValues.ingredientPrice}
                 />
-                <label htmlFor="BeverageType">Type</label>
-                <input 
-                    type="text" 
-                    name="BeverageType" 
-                    onChange={(e) => setFormValues({ ...formValues, BeverageType: e.target.value })}
-                    value={formValues.BeverageType}
+                <label htmlFor="ingredientPackSize">Type</label>
+                <input
+                    type="text"
+                    name="ingredientPackSize"
+                    onChange={(e) => setFormValues({ ...formValues, ingredientPackSize: e.target.value })}
+                    value={formValues.ingredientPackSize}
                 />
                 <button type="submit">SUBMIT</button>
             </form>

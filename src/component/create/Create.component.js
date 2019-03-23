@@ -2,7 +2,6 @@ import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 import { initialState, reducer } from '../../redux';
 
-
 const Create = () => {
 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -19,37 +18,38 @@ const Create = () => {
         dispatch({
             type: 'ADD_BEVERAGE',
             payload: {
-                BeverageName: state.BeverageName,
-                BeveragePrice: state.BeveragePrice,
-                BeverageType: state.BeverageType
+                ingredientName: state.ingredientName,
+                ingredientPrice: state.ingredientPrice,
+                ingredientPackSize: state.ingredientPackSize
             }
         });
     }
 
+    console.log(state)
     return (
         <div>
             <h1>hello from the Create component</h1>
             <form onSubmit={(e) => addBeverage(e)}>
                 <input
                     type='text'
-                    name='BeverageName'
+                    name='ingredientName'
                     placeholder='Beverage Name'
                     onChange={(e) => updateInput(e)}
-                    value={state.BeverageName}
+                    value={state.ingredientName}
                 />
                 <input
                     type='number'
-                    name='BeveragePrice'
+                    name='ingredientPrice'
                     placeholder='Beverage Price'
                     onChange={(e) => updateInput(e)}
-                    value={state.BeveragePrice}
+                    value={state.ingredientPrice}
                 />
                 <input
                     type='text'
-                    name='BeverageType'
+                    name='ingredientPackSize'
                     placeholder='Beverage Type'
                     onChange={(e) => updateInput(e)}
-                    value={state.BeverageType}
+                    value={state.ingredientPackSize}
                 />
                 <button type="submit">Submit</button>
             </form>
