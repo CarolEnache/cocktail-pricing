@@ -26,6 +26,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "babel-plugin-macros": "^2.5.0",
+    "babel-plugin-styled-components": "^1.10.0",
     "bootstrap": "^4.2.1"
   }
 }

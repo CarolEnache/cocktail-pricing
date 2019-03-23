@@ -36,7 +36,7 @@ const App = () => {
                 <Router>
                     <div>
                         <Route exact path='/' component={Read} />
-                        <Route path='/create' component={Create} />
+                        {/* <Route path='/create' component={Create} /> */}
                         <Route path='/Update/' component={Update} />
                         <Route path='/play/' component={Play} />
                     </div>

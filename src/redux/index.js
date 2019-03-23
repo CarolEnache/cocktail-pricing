@@ -1,6 +1,5 @@
 import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem} from './db';
 export const initialState = {
-    // number: 0,
     toggleState: false,
     ingredientName: '',
     ingredientPrice: 0,

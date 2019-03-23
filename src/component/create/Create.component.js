@@ -53,7 +53,6 @@ const Create = () => {
                 />
                 <button type="submit">Submit</button>
             </form>
-            <h4><Link to='/'>Done</Link></h4>
         </div>
     )
 }

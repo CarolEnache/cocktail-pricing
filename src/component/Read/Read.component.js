@@ -1,14 +1,17 @@
-import React, {  useContext } from 'react';
+import React, {  useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 import { StateContext, DispatchContext } from '../../App';
+
+import Create from '../create';
 import Modal from '../element';
 
 
 const Read = () => {
     const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
+    const [addIngredient, setAddIngredient] = useState(false)
     let Updateing = !!state.updateIngredient;
 
     const deleteItem = (id) => {
@@ -21,10 +24,15 @@ const Read = () => {
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_Update_BEVERAGE' });
     }
+    console.log(addIngredient)
+
     return (
         <Container>
             <h1>Hello from the Read Component</h1>
-            <h4><Link to='/create'>Add More Items</Link></h4>
+            {addIngredient && (
+                <Create />
+            )}
+            <button onClick={(e) => setAddIngredient(!addIngredient)}>Add ingredients</button>
             {Updateing && (<Modal onClose={handleToggle} ></Modal>)}
             <ul>
             { state.ingredients.ingredientsList && state.ingredients.ingredientsList.map(beverageItem => {
