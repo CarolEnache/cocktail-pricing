@@ -4,7 +4,7 @@ export const initialState = {
     toggleState: false,
     ingredientName: '',
     ingredientPrice: 0,
-    ingredientPackSize: '',
+    ingredientPackSize: 0,
     ingredients: [],
     updateIngredient: null
 }
@@ -44,12 +44,12 @@ export const reducer = (state, action) => {
                 ...state,
                 toggleState: action.payload
             }
-        case 'EDIT_BEVERAGE':
+        case 'Update_BEVERAGE':
             return {
                 ...state,
                 updateIngredient: action.payload
             }
-        case 'CANCEL_EDIT_BEVERAGE':
+        case 'CANCEL_Update_BEVERAGE':
             return {
                 ...state,
                 updateIngredient: null

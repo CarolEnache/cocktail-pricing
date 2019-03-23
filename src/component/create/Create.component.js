@@ -45,7 +45,7 @@ const Create = () => {
                     value={state.ingredientPrice}
                 />
                 <input
-                    type='text'
+                    type='number'
                     name='ingredientPackSize'
                     placeholder='Beverage Type'
                     onChange={(e) => updateInput(e)}

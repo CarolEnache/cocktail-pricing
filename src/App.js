@@ -8,8 +8,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import firebase from './firebase';
 import { initialState, reducer } from './redux';
 import Create from './component/create';
-import Edit from './component/edit';
-import Show from './component/show';
+import Update from './component/Update';
+import Read from './component/Read';
 import Play from './component/playground';
 
 const db = firebase.firestore();
@@ -35,9 +35,9 @@ const App = () => {
             <StateContext.Provider value={state}>
                 <Router>
                     <div>
-                        <Route exact path='/' component={Show} />
+                        <Route exact path='/' component={Read} />
                         <Route path='/create' component={Create} />
-                        <Route path='/edit/' component={Edit} />
+                        <Route path='/Update/' component={Update} />
                         <Route path='/play/' component={Play} />
                     </div>
                 </Router>
