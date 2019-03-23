@@ -1,11 +1,12 @@
 import React, {  useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
 import { StateContext, DispatchContext } from '../../App';
 
 import Create from '../create';
 import Modal from '../element';
+import Button from '../element/Button.component'; //TODO: Fix the File Indexing
 
 
 const Read = () => {
@@ -24,23 +25,25 @@ const Read = () => {
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_Update_BEVERAGE' });
     }
-    console.log(addIngredient)
-
     return (
         <Container>
-            <h1>Hello from the Read Component</h1>
+            <h4>Hello from the Read ingrediants list</h4>
             {addIngredient && (
                 <Create />
             )}
-            <button onClick={(e) => setAddIngredient(!addIngredient)}>Add ingredients</button>
+            <Button
+                theme={theme}
+                onClick={() => setAddIngredient(!addIngredient)}
+                >Add ingredients
+            </Button>
             {Updateing && (<Modal onClose={handleToggle} ></Modal>)}
             <ul>
             { state.ingredients.ingredientsList && state.ingredients.ingredientsList.map(beverageItem => {
                 return (
                     <li key={beverageItem.id} id={beverageItem.id}>
                         <p>{beverageItem.ingredientName} {beverageItem.ingredientPackSize} £ {beverageItem.ingredientPrice}</p>
-                        <button onClick={() => deleteItem(beverageItem.id)}>Delete</button>
-                        <button onClick={() => UpdateItem(beverageItem.id)}>Edit</button>
+                        <Button theme={{ main: 'red'}} onClick={() => deleteItem(beverageItem.id)}>Delete</Button>
+                        <Button theme={{ main: 'royalblue' }} onClick={() => UpdateItem(beverageItem.id)}>Edit</Button>
                     </li>
                 )
             })}
@@ -52,5 +55,11 @@ const Read = () => {
 const Container = styled.div`
     text-align: center;
 `
+const theme = {
+    main: 'mediumseagreen'
+}
+
+
+
 
 export default Read;
