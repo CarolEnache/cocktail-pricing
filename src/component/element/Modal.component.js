@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Portal from '../../portal';
-import Edit from '../edit';
+import Update from '../Update';
 
 import './style.css';
 
@@ -11,7 +11,7 @@ class Modal extends Component {
             <Portal>
                 <div className='modal-wrapper'>
                     <div className='modal-content'>
-                        <Edit id={this.props.id} />
+                        <Update id={this.props.id} />
                         <button onClick={this.props.onClose}>CANCEL</button>
                     </div>
                 </div>

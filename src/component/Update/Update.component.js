@@ -1,7 +1,9 @@
 import React,{ useContext, useState } from 'react';
 import { StateContext, DispatchContext } from '../../App';
 
-const Edit = () => {
+import Button from '../element/Button.component';//TODO: Fix the File Indexing
+
+const Update = () => {
 
     const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
@@ -10,16 +12,16 @@ const Edit = () => {
 
     const [formValues, setFormValues] = useState(item);
 
-    const editBeverage = (e) => {
+    const UpdateBeverage = (e) => {
         dispatch({ type: 'UPDATE_BEVERAGE', payload: formValues });
-        dispatch({ type: 'CANCEL_EDIT_BEVERAGE' });
+        dispatch({ type: 'CANCEL_Update_BEVERAGE' });
         e.preventDefault();
     }
 
     return (
         <div>
-            <h1>Edit your item here:</h1>
-            <form onSubmit={(e) => editBeverage(e)}>
+            <h1>Update your item here:</h1>
+            <form onSubmit={(e) => UpdateBeverage(e)}>
                 <label htmlFor="ingredientName">
                     Name
                 </label>
@@ -36,17 +38,25 @@ const Edit = () => {
                     onChange={(e) => setFormValues({ ...formValues, ingredientPrice: e.target.value })}
                     value={formValues.ingredientPrice}
                 />
-                <label htmlFor="ingredientPackSize">Type</label>
+                <label htmlFor="ingredientPackSize">Pack ize</label>
                 <input
                     type="text"
                     name="ingredientPackSize"
                     onChange={(e) => setFormValues({ ...formValues, ingredientPackSize: e.target.value })}
                     value={formValues.ingredientPackSize}
                 />
-                <button type="submit">SUBMIT</button>
+                <Button >SUBMIT</Button>
             </form>
         </div>
     )
 }
 
-export default Edit;
+const theme = {
+    main: 'mediumseagreen',
+    position: 'fixed',
+    top: '91%',
+    left: '0'
+}
+
+
+export default Update;
