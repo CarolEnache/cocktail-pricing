@@ -2,8 +2,8 @@ import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem} from './
 export const initialState = {
     toggleState: false,
     ingredientName: '',
-    ingredientPrice: 0,
-    ingredientPackSize: 0,
+    ingredientPrice: 'ex: 10.35',
+    ingredientPackSize: 'ex: 1kg is 1000',
     ingredients: [],
     updateIngredient: null
 }
@@ -21,8 +21,8 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 ingredientName: '',
-                ingredientPrice: 0,
-                ingredientPackSize: ''
+                ingredientPrice: 'ex: 10.35',
+                ingredientPackSize: 'ex: 1kg is 1000',
             }
         case 'UPDATE_BEVERAGE':
             updateFirestoreItem('ingredientsList', action.payload);

@@ -27,14 +27,11 @@ const Read = () => {
     }
     return (
         <Container>
-            <h4>Hello from the Read ingrediants list</h4>
-            {addIngredient && (
-                <Create />
-            )}
+            {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>}
             <Button
                 theme={theme}
                 onClick={() => setAddIngredient(!addIngredient)}
-                >Add ingredients
+            > {addIngredient ? 'Done' : 'Add ingredients' }
             </Button>
             {Updateing && (<Modal onClose={handleToggle} ></Modal>)}
             <ul>
@@ -42,21 +39,34 @@ const Read = () => {
                 return (
                     <li key={beverageItem.id} id={beverageItem.id}>
                         <p>{beverageItem.ingredientName} {beverageItem.ingredientPackSize} £ {beverageItem.ingredientPrice}</p>
-                        <Button theme={{ main: 'red'}} onClick={() => deleteItem(beverageItem.id)}>Delete</Button>
+                        <Button type="button" theme={{ main: 'red'}} onClick={() => deleteItem(beverageItem.id)}>Delete</Button>
                         <Button theme={{ main: 'royalblue' }} onClick={() => UpdateItem(beverageItem.id)}>Edit</Button>
                     </li>
                 )
             })}
             </ul>
+            <div>
+                hjjkhgjhgjhgjhgjhgjhg
+            </div>
         </Container>
     )
 }
 
 const Container = styled.div`
-    text-align: center;
+    h4 {
+        text-align: center;
+        padding: 0.7em;
+    }
+
+    ul {
+        list-style: none;
+    }
 `
 const theme = {
-    main: 'mediumseagreen'
+    main: 'mediumseagreen',
+    position: 'fixed',
+    top: '91%',
+    left: '0'
 }
 
 

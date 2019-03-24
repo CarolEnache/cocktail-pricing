@@ -8,5 +8,8 @@ const Button = styled.button`
     border-radius: 3px;
     color: ${props => props.theme.main};
     border: 2px solid ${props => props.theme.main};
+    position: ${props => props.theme.position};
+    top: ${props => props.theme.top};
+    left: ${props => props.theme.left};
 `;
 export default Button;

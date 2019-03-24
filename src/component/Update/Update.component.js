@@ -1,6 +1,8 @@
 import React,{ useContext, useState } from 'react';
 import { StateContext, DispatchContext } from '../../App';
 
+import Button from '../element/Button.component';//TODO: Fix the File Indexing
+
 const Update = () => {
 
     const state = useContext(StateContext);
@@ -43,10 +45,18 @@ const Update = () => {
                     onChange={(e) => setFormValues({ ...formValues, ingredientPackSize: e.target.value })}
                     value={formValues.ingredientPackSize}
                 />
-                <button type="submit">SUBMIT</button>
+                <Button >SUBMIT</Button>
             </form>
         </div>
     )
 }
+
+const theme = {
+    main: 'mediumseagreen',
+    position: 'fixed',
+    top: '91%',
+    left: '0'
+}
+
 
 export default Update;
