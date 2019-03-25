@@ -5,9 +5,7 @@ export const initialState = {
     ingredientPrice: 'ex: 10.35',
     ingredientPackSize: 'ex: 1kg is 1000',
     ingredients: [],
-    updateIngredient: null,
-    recipeName: '',
-    numberOfIngredients: 0
+    updateIngredient: null
 }
 
 export const reducer = (state, action) => {
@@ -25,13 +23,6 @@ export const reducer = (state, action) => {
                 ingredientName: '',
                 ingredientPrice: 'ex: 10.35',
                 ingredientPackSize: 'ex: 1kg is 1000',
-            }
-        case 'ADD_RECIPE':
-            createFirestoreItem('recipesList', action.payload);
-            return {
-                ...state,
-                recipeName:'ex: Lasagna',
-                numberOfIngredients: 'ex: 4',
             }
         case 'UPDATE_BEVERAGE':
             updateFirestoreItem('ingredientsList', action.payload);
