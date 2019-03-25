@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 
 import { StateContext, DispatchContext } from '../../App';
 
-import Create from '../create';
+import {Create, CreateRecipe} from '../create';
 import Modal from '../element';
 import Button from '../element/Button.component'; //TODO: Fix the File Indexing
 
@@ -27,6 +27,9 @@ const Read = () => {
     }
     return (
         <Container>
+            <div>
+                <CreateRecipe />
+            </div>
             {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>}
             <Button
                 theme={theme}
@@ -45,9 +48,6 @@ const Read = () => {
                 )
             })}
             </ul>
-            <div>
-                hjjkhgjhgjhgjhgjhgjhg
-            </div>
         </Container>
     )
 }

@@ -1,2 +1,3 @@
 import Create from './Create.component';
-export default Create;
+import CreateRecipe from './CreateRecipe.component';
+export {Create, CreateRecipe};
