@@ -7,7 +7,8 @@ export const initialState = {
     ingredients: [],
     updateIngredient: null,
     recipeName: '',
-    numberOfIngredients: 0
+    numberOfIngredients: 0,
+    recipes: [],
 }
 
 export const reducer = (state, action) => {
@@ -42,10 +43,15 @@ export const reducer = (state, action) => {
                     ...state.ingredients.ingredientsList.filter(b => b.id !== action.payload.id),
                 ]
             }
-        case 'SET_BEVERAGE_LIST':
+        case 'SET_INGREDIENTS_LIST':
             return {
                 ...state,
                 ingredients: action.payload
+            }
+        case 'SET_RECIPES_LIST':
+            return {
+                ...state,
+                recipes: action.payload
             }
         case 'TOGGLE_STATE':
             return {

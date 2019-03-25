@@ -14,6 +14,7 @@ const Read = () => {
     const dispatch = useContext(DispatchContext);
     const [addIngredient, setAddIngredient] = useState(false)
     let Updateing = !!state.updateIngredient;
+    // const { ingredients, recipes} = state;
 
     const deleteItem = (id) => {
         dispatch({ type: 'DELETE_BEVERAGE', payload: id })
@@ -25,10 +26,23 @@ const Read = () => {
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_Update_BEVERAGE' });
     }
+    console.log(state.recipes.recipesList)
     return (
         <Container>
             <div>
                 <CreateRecipe />
+            </div>
+            <div>
+                <h4>this is the read recipes</h4>
+                <ul>
+                {state.recipes.recipesList && state.recipes.recipesList.map(recipe => {
+                    return(
+                        <li key={recipe.id} id={recipe.id}>
+                            <p>{recipe.recipeName} Number of portions: {recipe.numberOfIngredients}</p>
+                        </li>
+                    )
+                })}
+                </ul>
             </div>
             {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>}
             <Button

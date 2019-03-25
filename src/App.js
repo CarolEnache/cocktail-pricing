@@ -27,7 +27,17 @@ const App = () => {
                 }))
             };
             console.log(bvList)
-            dispatch({ type: 'SET_BEVERAGE_LIST', payload: bvList });
+            dispatch({ type: 'SET_INGREDIENTS_LIST', payload: bvList });
+        });
+        db.collection('recipesList').onSnapshot(snapshot => {
+            const recipesList = {
+                recipesList: snapshot.docs.map(doc => ({
+                    ...doc.data(),
+                    id: doc.id
+                }))
+            };
+            console.log(recipesList)
+            dispatch({ type: 'SET_RECIPES_LIST', payload: recipesList });
         });
     }, { state });
     return (
