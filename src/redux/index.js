@@ -6,6 +6,7 @@ export const initialState = {
     ingredientPackSize: 'ex: 1kg is 1000',
     ingredients: [],
     updateIngredient: null,
+    updateRecipe: null,
     recipeName: '',
     numberOfIngredients: 0,
     recipes: [],
@@ -41,6 +42,15 @@ export const reducer = (state, action) => {
                 ingredients: [
                     action.payload,
                     ...state.ingredients.ingredientsList.filter(b => b.id !== action.payload.id),
+                ]
+            }
+        case 'UPDATE_RECIPE':
+            updateFirestoreItem('recipesList', action.payload);
+            return {
+                ...state,
+                ingredients: [
+                    action.payload,
+                    ...state.recipes.recipesList.filter(b => b.id !== action.payload.id),
                 ]
             }
         case 'SET_INGREDIENTS_LIST':

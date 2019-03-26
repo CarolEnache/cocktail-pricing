@@ -30,7 +30,6 @@ const Create = () => {
         });
     }
 
-    console.log(state)
     return (
         <CreateComponentWrapper>
             <h4>Create component</h4>

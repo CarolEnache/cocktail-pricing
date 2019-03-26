@@ -51,12 +51,4 @@ const Update = () => {
     )
 }
 
-const theme = {
-    main: 'mediumseagreen',
-    position: 'fixed',
-    top: '91%',
-    left: '0'
-}
-
-
 export default Update;

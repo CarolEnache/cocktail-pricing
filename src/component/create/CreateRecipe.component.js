@@ -29,7 +29,6 @@ const CreateRecipe = () => {
         });
     }
 
-    console.log(state)
     return (
         <CreateRecipeComponentWrapper>
             <h4>Create recipe</h4>

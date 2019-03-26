@@ -4,6 +4,9 @@ import styled from 'styled-components/macro';
 
 import { StateContext, DispatchContext } from '../../App';
 
+import Update from '../Update';
+import UpdateRecipe from '../Update/UpdateRecipe.component';
+
 import {Create, CreateRecipe} from '../create';
 import Modal from '../element';
 import Button from '../element/Button.component'; //TODO: Fix the File Indexing
@@ -13,7 +16,9 @@ const Read = () => {
     const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
     const [addIngredient, setAddIngredient] = useState(false)
-    let Updateing = !!state.updateIngredient;
+    const [itemId, setItemId] = useState('')
+    let updateingIngredient = !!state.updateIngredient;
+    let updateRecipe = !!state.updateRecipe;
     // const { ingredients, recipes} = state;
 
     const deleteItem = (id) => {
@@ -26,7 +31,7 @@ const Read = () => {
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_Update_BEVERAGE' });
     }
-    console.log(state.recipes.recipesList)
+    console.log(itemId)
     return (
         <Container>
             <div>
@@ -39,25 +44,42 @@ const Read = () => {
                     return(
                         <li key={recipe.id} id={recipe.id}>
                             <p>{recipe.recipeName} Number of portions: {recipe.numberOfIngredients}</p>
+                            <Button type="button" theme={{ main: 'red' }} onClick={() => deleteItem(recipe.id)}>Delete</Button>
+                            <Button
+                                theme={{ main: 'royalblue' }}
+                                onClick={() =>{
+                                    setItemId(recipe.id)
+                                    UpdateItem(recipe.id)
+                                }}
+                                >Edit</Button>
+
                         </li>
                     )
                 })}
                 </ul>
             </div>
+            {/* <Update id={'WkLSQqzQMrJNlJ74fMCo'}/> */}
             {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>}
             <Button
                 theme={theme}
                 onClick={() => setAddIngredient(!addIngredient)}
             > {addIngredient ? 'Done' : 'Add ingredients' }
             </Button>
-            {Updateing && (<Modal onClose={handleToggle} ></Modal>)}
+            {/* {updateingIngredient && (<Modal onClose={handleToggle} ><Update id={itemId} /></Modal>)} */}
+            {updateRecipe && (<Modal onClose={handleToggle} ><UpdateRecipe id={itemId} /></Modal>)}
             <ul>
             { state.ingredients.ingredientsList && state.ingredients.ingredientsList.map(beverageItem => {
                 return (
                     <li key={beverageItem.id} id={beverageItem.id}>
                         <p>{beverageItem.ingredientName} {beverageItem.ingredientPackSize} £ {beverageItem.ingredientPrice}</p>
                         <Button type="button" theme={{ main: 'red'}} onClick={() => deleteItem(beverageItem.id)}>Delete</Button>
-                        <Button theme={{ main: 'royalblue' }} onClick={() => UpdateItem(beverageItem.id)}>Edit</Button>
+                        <Button
+                            theme={{ main: 'royalblue' }}
+                            onClick={() => {
+                                setItemId(beverageItem.id)
+                                UpdateItem(beverageItem.id)
+                            }}
+                            >Edit</Button>
                     </li>
                 )
             })}

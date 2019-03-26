@@ -26,7 +26,6 @@ const App = () => {
                     id: doc.id
                 }))
             };
-            console.log(bvList)
             dispatch({ type: 'SET_INGREDIENTS_LIST', payload: bvList });
         });
         db.collection('recipesList').onSnapshot(snapshot => {
@@ -36,7 +35,6 @@ const App = () => {
                     id: doc.id
                 }))
             };
-            console.log(recipesList)
             dispatch({ type: 'SET_RECIPES_LIST', payload: recipesList });
         });
     }, { state });
