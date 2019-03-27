@@ -38,6 +38,8 @@ const App = () => {
             dispatch({ type: 'SET_RECIPES_LIST', payload: recipesList });
         });
     }, { state });
+
+    console.log(state)
     return (
         <DispatchContext.Provider value={dispatch}>
             <StateContext.Provider value={state}>

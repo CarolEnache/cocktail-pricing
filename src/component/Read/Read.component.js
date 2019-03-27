@@ -65,8 +65,8 @@ const Read = () => {
                 onClick={() => setAddIngredient(!addIngredient)}
             > {addIngredient ? 'Done' : 'Add ingredients' }
             </Button>
-            {/* {updateingIngredient && (<Modal onClose={handleToggle} ><Update id={itemId} /></Modal>)} */}
-            {updateRecipe && (<Modal onClose={handleToggle} ><UpdateRecipe id={itemId} /></Modal>)}
+            {updateingIngredient && (<Modal onClose={handleToggle} ><Update id={itemId} /></Modal>)}
+            {/* {updateRecipe && (<Modal onClose={handleToggle} ><UpdateRecipe id={itemId} /></Modal>)} */}
             <ul>
             { state.ingredients.ingredientsList && state.ingredients.ingredientsList.map(beverageItem => {
                 return (
