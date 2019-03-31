@@ -31,7 +31,9 @@ const UpdateRecipe = () => {
                     onChange={(e) => setFormValues({ ...formValues, recipeName: e.target.value })}
                     value={formValues.recipeName}
                 />
-                <label htmlFor="numberOfIngredients">Price</label>
+                <label htmlFor="numberOfIngredients">
+                    Price
+                </label>
                 <input
                     type="number"
                     name="numberOfIngredients"

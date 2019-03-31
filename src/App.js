@@ -7,10 +7,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import firebase from './firebase';
 import { initialState, reducer } from './redux';
-import Create from './component/create';
+// import Create from './component/create';
 import Update from './component/Update';
 import Read from './component/Read';
-import Play from './component/playground';
+// import Play from './component/playground';
 
 const db = firebase.firestore();
 db.settings({ timestampsInSnapshots: true });
@@ -39,7 +39,6 @@ const App = () => {
         });
     }, { state });
 
-    console.log(state)
     return (
         <DispatchContext.Provider value={dispatch}>
             <StateContext.Provider value={state}>
@@ -48,7 +47,7 @@ const App = () => {
                         <Route exact path='/' component={Read} />
                         {/* <Route path='/create' component={Create} /> */}
                         <Route path='/Update/' component={Update} />
-                        <Route path='/play/' component={Play} />
+                        {/* <Route path='/play/' component={Play} /> */}
                     </div>
                 </Router>
             </StateContext.Provider>

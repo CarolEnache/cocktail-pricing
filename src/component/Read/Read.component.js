@@ -18,9 +18,9 @@ const Read = () => {
     const [addIngredient, setAddIngredient] = useState(false)
     const [itemId, setItemId] = useState('')
     let updateingIngredient = !!state.updateIngredient;
-    let updateRecipe = !!state.updateRecipe;
+    // let updateRecipe = !!state.updateRecipe;
     // const { ingredients, recipes} = state;
-
+    // console.log(state)
     const deleteItem = (id) => {
         dispatch({ type: 'DELETE_BEVERAGE', payload: id })
     }
@@ -31,10 +31,10 @@ const Read = () => {
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_Update_BEVERAGE' });
     }
-    console.log(itemId)
+
     return (
         <Container>
-            <div>
+            {/* <div>
                 <CreateRecipe />
             </div>
             <div>
@@ -52,18 +52,16 @@ const Read = () => {
                                     UpdateItem(recipe.id)
                                 }}
                                 >Edit</Button>
-
                         </li>
                     )
                 })}
                 </ul>
-            </div>
-            {/* <Update id={'WkLSQqzQMrJNlJ74fMCo'}/> */}
+            </div> */}
             {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>}
             <Button
                 theme={theme}
                 onClick={() => setAddIngredient(!addIngredient)}
-            > {addIngredient ? 'Done' : 'Add ingredients' }
+                > {addIngredient ? 'Done' : 'Add ingredients' }
             </Button>
             {updateingIngredient && (<Modal onClose={handleToggle} ><Update id={itemId} /></Modal>)}
             {/* {updateRecipe && (<Modal onClose={handleToggle} ><UpdateRecipe id={itemId} /></Modal>)} */}
