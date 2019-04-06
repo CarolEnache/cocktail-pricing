@@ -27,14 +27,16 @@ export const reducer = (state, action) => {
         case 'SELECTED_VALUE':
             return {
                 ...state,
-                ingredientName: action.payload,
+                ingredientName: action.payloadName,
+                ingredientPrice: action.payloadPrice,
+                ingredientPackSize: action.payloadPack,
             }
         case 'SELECTED_VALUE_PRICE':
             return {
                 ...state,
                 ingredientPackSize: action.payload,
             }
-        case 'ADD_BEVERAGE':
+        case 'ADD_INGREDIENT':
             createFirestoreItem('ingredientsList', action.payload);
             return {
                 ...state,
@@ -49,7 +51,7 @@ export const reducer = (state, action) => {
                 recipeName:'ex: Lasagna',
                 numberOfIngredients: 'ex: 4',
             }
-        case 'UPDATE_BEVERAGE':
+        case 'UPDATE_INGREDIENT':
             updateFirestoreItem('ingredientsList', action.payload);
             return {
                 ...state,

@@ -22,6 +22,15 @@ export const updateFirestoreItem = (collection, item) => {
     }
 };
 
+export const deleteFirestoreItem = (collection, item) => {
+    try {
+        db.collection(collection).doc(item).delete();
+    }
+    catch (e) {
+        console.error(e);
+    }
+}
+
 // export const getFirestoreItems = async (collection) => {
 //     const response = await db.collection(collection).get();
 //     let output = [];
@@ -48,14 +57,6 @@ export const updateFirestoreItem = (collection, item) => {
 //     return bvList;
 // }
 
-export const deleteFirestoreItem = (collection, item) => {
-    try {
-        db.collection(collection).doc(item).delete();
-    }
-    catch (e) {
-        console.error(e);
-    }
-}
 
 // export const checkSnapchat = (collection, item) => {
 //     try {

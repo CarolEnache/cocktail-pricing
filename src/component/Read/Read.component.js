@@ -34,7 +34,7 @@ const Read = () => {
 
     return (
         <Container>
-            {/* <div>
+            <div>
                 <CreateRecipe />
             </div>
             <div>
@@ -56,7 +56,7 @@ const Read = () => {
                     )
                 })}
                 </ul>
-            </div> */}
+            </div>
             {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>}
             <Button
                 theme={theme}

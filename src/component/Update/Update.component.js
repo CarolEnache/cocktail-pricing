@@ -8,14 +8,17 @@ const Update = () => {
     const state = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
 
-    const item = state.ingredients.ingredientsList.filter(bev => bev.id === state.updateIngredient)
+    const item = state.ingredients.ingredientsList
+        .filter(bev =>
+            bev.id === state.updateIngredient
+        )
 
     const [formValues, setFormValues] = useState(item[0])
 
     const updateIngredient = (e) => {
         e.preventDefault();
         dispatch({
-            type: 'UPDATE_BEVERAGE',
+            type: 'UPDATE_INGREDIENT',
             payload: formValues
         })
         dispatch({

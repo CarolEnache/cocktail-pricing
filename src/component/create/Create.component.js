@@ -9,6 +9,7 @@ import Input from '../element/Input.component';
 import Button from '../element/Button.component';//TODO: Fix the File Indexing
 
 const defaultValues = {
+    id: '',
     ingredientName: "",
     ingredientPackSize: "",
     ingredientPrice: "",
@@ -18,27 +19,25 @@ const Create = () => {
     const data = useContext(StateContext);
     const dispatch = useContext(DispatchContext);
     const [formValues, setFormValues] = useState(defaultValues)
-
+    const [selected, setSelected] = useState(false)
     let items = data.ingredients.ingredientsList
     let sugestedList = items && items
         .filter(sugestedItem =>
             sugestedItem.ingredientName
                 .includes(formValues.ingredientName))
 
-
     const createNewIngrediendItem = () =>
         dispatch({
-            type: 'ADD_BEVERAGE',
+            type: 'ADD_INGREDIENT',
             payload: formValues
         })
-    const updateCurrentIngrediendItem = (id) =>
+
+    const updateCurrentIngrediendItem = () =>
         dispatch({
-            type: 'UPDATE_BEVERAGE',
-            payload: {
-                ...formValues,
-                id
-            }
+            type: 'UPDATE_INGREDIENT',
+            payload: formValues
         })
+
     const updateInput = e => {
         dispatch({
             type: 'BEVEREAGE_FORM_STATE',
@@ -56,37 +55,44 @@ const Create = () => {
 
     const addBeverage = (e) => {
         e.preventDefault()
-        const currentIngredient = sugestedList && sugestedList
-            .filter(sugestedItem =>
-                sugestedItem.ingredientName
-                    .includes(formValues.ingredientName))
 
-        const createOrUpdate = currentIngredient.length === 1
-        createOrUpdate ? updateCurrentIngrediendItem(currentIngredient[0].id) : createNewIngrediendItem()
+        // const currentIngredient = sugestedList && sugestedList
+        //     .filter(sugestedItem =>
+        //         sugestedItem.ingredientName
+        //             .includes(formValues.ingredientName))
+
+        return createNewIngrediendItem()
     }
 
     const selectValue = (e) => {
         const selectedValue = e.target.id;
         const selectedValueObject = items.filter(f => f.id === selectedValue)
-        const { ingredientName, ingredientPackSize, ingredientPrice } = selectedValueObject[0]
+        const { ingredientName, ingredientPackSize, ingredientPrice} = selectedValueObject[0]
+
+        setFormValues({
+            ...formValues,
+            id: selectedValue,
+            ingredientName: ingredientName,
+            ingredientPackSize: ingredientPackSize,
+            ingredientPrice: ingredientPrice,
+        })
+
         dispatch({
             type: 'SELECTED_VALUE',
             name: ingredientName,
-            payload: ingredientName,
+            payloadName: ingredientName,
+            payloadPrice: ingredientPrice,
+            payloadPack: ingredientPackSize,
         })
-        setFormValues({
-            ...formValues,
-            ingredientName,
-            ingredientPackSize,
-            ingredientPrice
-        })
+
         updateInput(e)
+        setSelected(true)
     }
 
     return (
         <CreateComponentWrapper>
             <h4>Add ingredients</h4>
-            <Form onSubmit={(e) => addBeverage(e)} autocomplete="off">
+            <Form onSubmit={(e) => addBeverage(e)}>
                 <span>Ingredient name</span>
                 <Input
                     type='text'
@@ -99,7 +105,7 @@ const Create = () => {
                     value={formValues.ingredientName}
                     required
                 />
-                {sugestedList && sugestedList.map(({ id, ingredientName }) => {
+                {sugestedList && !selected && sugestedList.map(({ id, ingredientName }) => {
                     return (
                         <Option id={id} ingredientName={ingredientName}/>
                         )
