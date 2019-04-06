@@ -29,10 +29,9 @@ const CreateRecipe = () => {
         });
     }
 
-    console.log(state)
     return (
         <CreateRecipeComponentWrapper>
-            <h4>Create component</h4>
+            <h4>Create recipe</h4>
             <Form onSubmit={(e) => addBeverage(e)}>
                 <span>Recipe name</span>
                 <Input

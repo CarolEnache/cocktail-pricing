@@ -1,24 +1,42 @@
 import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem} from './db';
 export const initialState = {
     toggleState: false,
+    ingredientForm: {
+        ingredientName: '',
+        ingredientPrice: 'ex: 10.35',
+        ingredientPackSize: 'ex: 1kg is 1000',
+    },
     ingredientName: '',
-    ingredientPrice: 'ex: 10.35',
+    ingredientPrice: 'ex: 10',
     ingredientPackSize: 'ex: 1kg is 1000',
     ingredients: [],
     updateIngredient: null,
+    updateRecipe: null,
     recipeName: '',
-    numberOfIngredients: 0
+    numberOfIngredients: 0,
+    recipes: [],
 }
 
 export const reducer = (state, action) => {
-
     switch(action.type) {
         case 'BEVEREAGE_FORM_STATE':
             return {
                 ...state,
                 [action.name]: action.payload
             }
-        case 'ADD_BEVERAGE':
+        case 'SELECTED_VALUE':
+            return {
+                ...state,
+                ingredientName: action.payloadName,
+                ingredientPrice: action.payloadPrice,
+                ingredientPackSize: action.payloadPack,
+            }
+        case 'SELECTED_VALUE_PRICE':
+            return {
+                ...state,
+                ingredientPackSize: action.payload,
+            }
+        case 'ADD_INGREDIENT':
             createFirestoreItem('ingredientsList', action.payload);
             return {
                 ...state,
@@ -33,7 +51,7 @@ export const reducer = (state, action) => {
                 recipeName:'ex: Lasagna',
                 numberOfIngredients: 'ex: 4',
             }
-        case 'UPDATE_BEVERAGE':
+        case 'UPDATE_INGREDIENT':
             updateFirestoreItem('ingredientsList', action.payload);
             return {
                 ...state,
@@ -42,10 +60,24 @@ export const reducer = (state, action) => {
                     ...state.ingredients.ingredientsList.filter(b => b.id !== action.payload.id),
                 ]
             }
-        case 'SET_BEVERAGE_LIST':
+        case 'UPDATE_RECIPE':
+            updateFirestoreItem('recipesList', action.payload);
+            return {
+                ...state,
+                ingredients: [
+                    action.payload,
+                    ...state.recipes.recipesList.filter(b => b.id !== action.payload.id),
+                ]
+            }
+        case 'SET_INGREDIENTS_LIST':
             return {
                 ...state,
                 ingredients: action.payload
+            }
+        case 'SET_RECIPES_LIST':
+            return {
+                ...state,
+                recipes: action.payload
             }
         case 'TOGGLE_STATE':
             return {
