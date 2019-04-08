@@ -42,7 +42,7 @@ const CreateRecipe = () => {
                     value={state.recipeName}
                     required
                 />
-                <span>Number of portions</span>
+                <span>Serves:</span>
                 <Input
                     type='number'
                     // step="any"

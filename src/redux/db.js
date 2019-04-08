@@ -22,9 +22,9 @@ export const updateFirestoreItem = (collection, item) => {
     }
 };
 
-export const deleteFirestoreItem = (collection, item) => {
+export const deleteFirestoreItem = (collection, id) => {
     try {
-        db.collection(collection).doc(item).delete();
+        db.collection(collection).doc(id).delete();
     }
     catch (e) {
         console.error(e);

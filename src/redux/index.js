@@ -89,10 +89,16 @@ export const reducer = (state, action) => {
                 ...state,
                 updateIngredient: action.payload
             }
+        case 'UPDATE_RECIPE_FROM_LIST':
+            return {
+                ...state,
+                updateRecipe: action.payload
+            }
         case 'CANCEL_Update_BEVERAGE':
             return {
                 ...state,
-                updateIngredient: null
+                updateIngredient: null,
+                updateRecipe: null
             }
         case 'DELETE_BEVERAGE':
             deleteFirestoreItem('ingredientsList', action.payload)
@@ -100,6 +106,14 @@ export const reducer = (state, action) => {
                 ...state,
                 ingredients: [
                     state.ingredients
+                ]
+            }
+        case 'DELETE_RECIPE':
+            deleteFirestoreItem('recipesList', action.payload)
+            return {
+                ...state,
+                recipes: [
+                    state.recipes
                 ]
             }
         default:

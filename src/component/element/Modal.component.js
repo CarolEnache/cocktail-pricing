@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Portal from '../../portal';
-import Update from '../Update';
-import UpdateRecipe from '../Update/UpdateRecipe.component';
 
 import './style.css';
 

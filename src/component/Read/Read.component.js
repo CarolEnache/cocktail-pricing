@@ -18,15 +18,21 @@ const Read = () => {
     const [addIngredient, setAddIngredient] = useState(false)
     const [itemId, setItemId] = useState('')
     let updateingIngredient = !!state.updateIngredient;
-    // let updateRecipe = !!state.updateRecipe;
+    let updateRecipe = !!state.updateRecipe;
     // const { ingredients, recipes} = state;
     // console.log(state)
     const deleteItem = (id) => {
         dispatch({ type: 'DELETE_BEVERAGE', payload: id })
     }
+    const deleteRecipe = (id) => {
+        dispatch({ type: 'DELETE_RECIPE', payload: id })
+    }
 
     const UpdateItem = (id) => {
         dispatch({ type: 'Update_BEVERAGE', payload: id });
+    }
+    const updateRecipeFromList = (id) => {
+        dispatch({ type: 'UPDATE_RECIPE_FROM_LIST', payload: id });
     }
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_Update_BEVERAGE' });
@@ -40,18 +46,28 @@ const Read = () => {
             <div>
                 <h4>this is the read recipes</h4>
                 <ul>
+                    {console.log(state)}
                 {state.recipes.recipesList && state.recipes.recipesList.map(recipe => {
                     return(
                         <li key={recipe.id} id={recipe.id}>
-                            <p>{recipe.recipeName} Number of portions: {recipe.numberOfIngredients}</p>
-                            <Button type="button" theme={{ main: 'red' }} onClick={() => deleteItem(recipe.id)}>Delete</Button>
+                            <p>{recipe.recipeName} Serves: {recipe.numberOfIngredients}</p>
+                            <Button
+                                type="button"
+                                theme={{ main: 'red' }}
+                                onClick={() => deleteRecipe(recipe.id)}
+                                >Delete</Button>
                             <Button
                                 theme={{ main: 'royalblue' }}
                                 onClick={() =>{
                                     setItemId(recipe.id)
-                                    UpdateItem(recipe.id)
+                                    updateRecipeFromList(recipe.id)
                                 }}
                                 >Edit</Button>
+                            {/* <Button
+                                theme={{ main: 'green'}}
+                                onClick={() => setAddIngredient(!addIngredient)}
+                            > {addIngredient ? 'Done' : 'Add'}
+                            </Button> */}
                         </li>
                     )
                 })}
@@ -64,7 +80,7 @@ const Read = () => {
                 > {addIngredient ? 'Done' : 'Add ingredients' }
             </Button>
             {updateingIngredient && (<Modal onClose={handleToggle} ><Update id={itemId} /></Modal>)}
-            {/* {updateRecipe && (<Modal onClose={handleToggle} ><UpdateRecipe id={itemId} /></Modal>)} */}
+            {updateRecipe && (<Modal onClose={handleToggle} ><UpdateRecipe id={itemId} /></Modal>)}
             <ul>
             { state.ingredients.ingredientsList && state.ingredients.ingredientsList.map(beverageItem => {
                 return (
