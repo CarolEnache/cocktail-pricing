@@ -31,9 +31,15 @@ const Read = () => {
     const UpdateItem = (id) => {
         dispatch({ type: 'Update_BEVERAGE', payload: id });
     }
+
     const updateRecipeFromList = (id) => {
         dispatch({ type: 'UPDATE_RECIPE_FROM_LIST', payload: id });
     }
+
+    const updateIngredientToRecipe = (id) => {
+        console.log(id)
+    }
+
     const handleToggle = ( ) => {
         dispatch({ type: 'CANCEL_Update_BEVERAGE' });
     }
@@ -46,28 +52,28 @@ const Read = () => {
             <div>
                 <h4>this is the read recipes</h4>
                 <ul>
-                    {console.log(state)}
                 {state.recipes.recipesList && state.recipes.recipesList.map(recipe => {
+                    const { id, recipeName, numberOfIngredients } = recipe;
                     return(
-                        <li key={recipe.id} id={recipe.id}>
-                            <p>{recipe.recipeName} Serves: {recipe.numberOfIngredients}</p>
+                        <li key={id} id={id}>
+                            <p>{recipeName} Serves: {numberOfIngredients}</p>
                             <Button
                                 type="button"
                                 theme={{ main: 'red' }}
-                                onClick={() => deleteRecipe(recipe.id)}
+                                onClick={() => deleteRecipe(id)}
                                 >Delete</Button>
                             <Button
                                 theme={{ main: 'royalblue' }}
                                 onClick={() =>{
-                                    setItemId(recipe.id)
-                                    updateRecipeFromList(recipe.id)
+                                    setItemId(id)
+                                    updateRecipeFromList(id)
                                 }}
                                 >Edit</Button>
-                            {/* <Button
+                            <Button
                                 theme={{ main: 'green'}}
-                                onClick={() => setAddIngredient(!addIngredient)}
-                            > {addIngredient ? 'Done' : 'Add'}
-                            </Button> */}
+                                onClick={() => updateIngredientToRecipe(id)}
+                            > Add ingredient
+                            </Button>
                         </li>
                     )
                 })}
