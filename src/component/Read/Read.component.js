@@ -10,7 +10,7 @@ import UpdateRecipe from '../Update/UpdateRecipe.component';
 import {Create, CreateRecipe} from '../create';
 import Modal from '../element';
 import Button from '../element/Button.component'; //TODO: Fix the File Indexing
-
+import SlideToggleContent from '../element/SlideToggleContent.component';
 
 const Read = () => {
     const state = useContext(StateContext);
@@ -19,8 +19,8 @@ const Read = () => {
     const [itemId, setItemId] = useState('')
     let updateingIngredient = !!state.updateIngredient;
     let updateRecipe = !!state.updateRecipe;
-    // const { ingredients, recipes} = state;
-    // console.log(state)
+    const [isVisible, setIsVisible] = useState(false);
+
     const deleteItem = (id) => {
         dispatch({ type: 'DELETE_BEVERAGE', payload: id })
     }
@@ -46,9 +46,13 @@ const Read = () => {
 
     return (
         <Container>
-            <div>
+            <SlideToggleContent isVisible={isVisible}>
                 <CreateRecipe />
-            </div>
+            </SlideToggleContent>
+            <Button
+                theme={{ main: 'green'}}
+                onClick={() => setIsVisible(!isVisible)}
+                >Create recipe</Button>
             <div>
                 <h4>this is the read recipes</h4>
                 <ul>
@@ -79,8 +83,8 @@ const Read = () => {
                 })}
                 </ul>
             </div>
-            {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>}
-            <Button
+            {/* {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>} */}
+            {/* <Button
                 theme={theme}
                 onClick={() => setAddIngredient(!addIngredient)}
                 > {addIngredient ? 'Done' : 'Add ingredients' }
@@ -103,7 +107,7 @@ const Read = () => {
                     </li>
                 )
             })}
-            </ul>
+            </ul> */}
         </Container>
     )
 }
