@@ -12,24 +12,39 @@ const CreateRecipe = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [recipeName, setRecipeName] = useState();
     const [numberOfPortions, setNumberOfPortions] = useState();
+    const [ingredientName, setIngredientName] = useState();
+    const [unitYield, setUnitYield] = useState();
+    const [unitPrice, setUnitPrice] = useState();
+    const [quantityUsed, setQuantityUsed] = useState();
+
+
     const [pageTitle, setPageTitle] = useState(['Create recipe']);
     const [toggle, setToggle] = useState(false);
     const config = { mass: 5, tension: 2000, friction: 200 };
+    const ingredientsList = []
+    const ingredient = { ingredientName, unitYield, unitPrice, quantityUsed }
+
+    const handleIngrdient = () =>{
+        ingredientsList.push(ingredient)
+        // [...ingredientsList, ingredient]
+        console.log(ingredientsList, ingredientsList.length)
+    }
 
     const addBeverage = (e) => {
         e.preventDefault();
-        setToggle(true)
         dispatch({
             type: 'ADD_RECIPE',
             payload: {
                 recipeName,
-                numberOfPortions
+                numberOfPortions,
+                ingredientsList
             }
         });
     }
 
     const changeTilte = () => {
-        setPageTitle([recipeName, ' ', `serves: ${numberOfPortions}`]);
+        setToggle(true)
+        setPageTitle([recipeName, ` serves: ${numberOfPortions}`]);
     }
 
     const trail = useTrail(pageTitle.length, {
@@ -39,8 +54,6 @@ const CreateRecipe = () => {
         height: toggle ? 20 : 0,
         from: { opacity: 0, x: 20, heigth: 0 }
     })
-    console.log(trail)
-
     return (
         <CreateRecipeComponentWrapper>
             <TrailsMain>
@@ -61,12 +74,40 @@ const CreateRecipe = () => {
                 {toggle ? (
                 <Fragment>
                     <h5>Ingredients list:</h5>
+                    {
+                        console.log(ingredientsList.length ? 'yes' : 'no')
+                    }
                     <span>Ingredient name</span>
                     <Input
                         type='text'
                         name='ingredientName'
                         placeholder='ex: Onion'
-                        // autoFocus={true}
+                        onChange={(e) => setIngredientName(e.target.value)}
+                        required
+                    />
+                    <div>
+                        <span>Quantity used</span>
+                        <Input
+                            type='number'
+                            name='ingredientName'
+                            placeholder='ex: 500g'
+                            onChange={(e) => setQuantityUsed(e.target.value)}
+                            required
+                        />
+                        <select>
+                            <option value="KG">kg</option>
+                            <option value="KG">g</option>
+                            <option value="KG">l</option>
+                            <option value="KG">ml</option>
+                            <option value="KG">tbsp</option>
+                        </select>
+                    </div>
+                    <span>Unit price per yield</span>
+                    <Input
+                        type='text'
+                        name='ingredientName'
+                        placeholder='ex: price per kg 12.50'
+                        onChange={(e) => setUnitPrice(e.target.value)}
                         required
                     />
                     <span>Unit yield in grams or mls</span>
@@ -74,22 +115,10 @@ const CreateRecipe = () => {
                         type='text'
                         name='ingredientName'
                         placeholder='ex: 1k is 1000'
+                        onChange={(e) => setUnitYield(e.target.value)}
                         required
                     />
-                    <span>Unit price per yield</span>
-                    <Input
-                        type='text'
-                        name='ingredientName'
-                        placeholder='ex: price per kg 12.50'
-                        required
-                    />
-                    <span>Quantity used</span>
-                    <Input
-                        type='text'
-                        name='ingredientName'
-                        placeholder='ex: 500'
-                        required
-                    />
+                    <Button theme={theme} type="button" onClick={handleIngrdient}>Add ingredient</Button>
                 </Fragment>
                 ) : (
                 <Fragment>
@@ -102,7 +131,7 @@ const CreateRecipe = () => {
                         onChange={(e) => setRecipeName(e.target.value)}
                         required
                     />
-                    <span>Serves:</span>
+                    <span>Number of portions:</span>
                     <Input
                         type='number'
                         name='numberOfIngredients'
@@ -110,9 +139,10 @@ const CreateRecipe = () => {
                         onChange={(e) => setNumberOfPortions(e.target.value)}
                         required
                     />
+                    <Button theme={theme} type="button" onClick={changeTilte}>Submit</Button>
                 </Fragment>
                 )}
-                <Button theme={theme} type="submit" onClick={changeTilte}>Submit</Button>
+                <Button theme={theme} type="submit">Create recipe</Button>
             </Form>
         </CreateRecipeComponentWrapper>
     )

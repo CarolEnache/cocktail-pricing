@@ -10,11 +10,8 @@ import { initialState, reducer } from './redux';
 // import Create from './component/create';
 import Update from './component/Update';
 import Read from './component/Read';
-// import Play from './component/playground';
 
 const db = firebase.firestore();
-db.settings({ timestampsInSnapshots: true });
-
 
 const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState);

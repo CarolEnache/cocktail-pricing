@@ -66,7 +66,7 @@ const Read = () => {
                                 theme={{ main: 'red' }}
                                 onClick={() => deleteRecipe(id)}
                                 >Delete</Button>
-                            <Button
+                            {/* <Button
                                 theme={{ main: 'royalblue' }}
                                 onClick={() =>{
                                     setItemId(id)
@@ -77,37 +77,12 @@ const Read = () => {
                                 theme={{ main: 'green'}}
                                 onClick={() => updateIngredientToRecipe(id)}
                             > Add ingredient
-                            </Button>
+                            </Button> */}
                         </li>
                     )
                 })}
                 </ul>
             </div>
-            {/* {addIngredient ? <Create /> : <h4>Hello from the Read ingrediants list</h4>} */}
-            {/* <Button
-                theme={theme}
-                onClick={() => setAddIngredient(!addIngredient)}
-                > {addIngredient ? 'Done' : 'Add ingredients' }
-            </Button>
-            {updateingIngredient && (<Modal onClose={handleToggle} ><Update id={itemId} /></Modal>)}
-            {updateRecipe && (<Modal onClose={handleToggle} ><UpdateRecipe id={itemId} /></Modal>)}
-            <ul>
-            { state.ingredients.ingredientsList && state.ingredients.ingredientsList.map(beverageItem => {
-                return (
-                    <li key={beverageItem.id} id={beverageItem.id}>
-                        <p>{beverageItem.ingredientName} {beverageItem.ingredientPackSize} £ {beverageItem.ingredientPrice}</p>
-                        <Button type="button" theme={{ main: 'red'}} onClick={() => deleteItem(beverageItem.id)}>Delete</Button>
-                        <Button
-                            theme={{ main: 'royalblue' }}
-                            onClick={() => {
-                                setItemId(beverageItem.id)
-                                UpdateItem(beverageItem.id)
-                            }}
-                            >Edit</Button>
-                    </li>
-                )
-            })}
-            </ul> */}
         </Container>
     )
 }
