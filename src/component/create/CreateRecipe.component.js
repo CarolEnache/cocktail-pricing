@@ -1,24 +1,25 @@
-import React, { useReducer, useState, Fragment } from 'react';
+import React, { useReducer, useState, useContext, useEffect, Fragment } from 'react';
 import { useTrail, animated } from 'react-spring'
 import styled from 'styled-components/macro';
-
 import { initialState, reducer } from '../../redux';
+import { StateContext } from '../../App';
 
 import Form from '../element/Form.component';
 import Input from '../element/Input.component';
 import Button from '../element/Button.component';//TODO: Fix the File Indexing
 
 const CreateRecipe = () => {
+    const toRename = useContext(StateContext);
     const [state, dispatch] = useReducer(reducer, initialState);
     const [recipeName, setRecipeName] = useState();
     const [numberOfPortions, setNumberOfPortions] = useState();
-    const [ingredientName, setIngredientName] = useState();
+    const [ingredientName, setIngredientName] = useState('');
     const [unitYield, setUnitYield] = useState();
     const [unitPrice, setUnitPrice] = useState();
     const [quantityUsed, setQuantityUsed] = useState();
+    const [old, setOld] = useState()
 
-
-    const [pageTitle, setPageTitle] = useState(['Create recipe']);
+    const [pageTitle, setPageTitle] = useState('Create recipe');
     const [toggle, setToggle] = useState(false);
     const config = { mass: 5, tension: 2000, friction: 200 };
     const ingredientsList = []
@@ -26,9 +27,17 @@ const CreateRecipe = () => {
 
     const handleIngrdient = () =>{
         ingredientsList.push(ingredient)
-        // [...ingredientsList, ingredient]
-        console.log(ingredientsList, ingredientsList.length)
     }
+
+    let initialListOfRecipesIds;
+    useEffect(() => {
+        initialListOfRecipesIds = toRename.recipes.recipesList.map(m => m.id)
+        setOld(initialListOfRecipesIds)
+    }, {})
+
+    const updatedListOfRecipesIds = toRename.recipes.recipesList.map(m => m.id)
+    const currentRecipeId = updatedListOfRecipesIds.filter(f => old && !old.includes(f))
+    console.log(currentRecipeId)
 
     const addBeverage = (e) => {
         e.preventDefault();
@@ -54,6 +63,7 @@ const CreateRecipe = () => {
         height: toggle ? 20 : 0,
         from: { opacity: 0, x: 20, heigth: 0 }
     })
+
     return (
         <CreateRecipeComponentWrapper>
             <TrailsMain>
@@ -83,6 +93,8 @@ const CreateRecipe = () => {
                         name='ingredientName'
                         placeholder='ex: Onion'
                         onChange={(e) => setIngredientName(e.target.value)}
+                        value={ingredientName}
+                        autoFocus={true}
                         required
                     />
                     <div>

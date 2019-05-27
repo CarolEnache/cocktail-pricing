@@ -1,4 +1,4 @@
-import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem} from './db';
+import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem } from './db';
 export const initialState = {
     toggleState: false,
     ingredientForm: {
