@@ -1,20 +1,11 @@
-import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem} from './db';
+import { createFirestoreItem, updateFirestoreItem, deleteFirestoreItem } from './db';
 export const initialState = {
     toggleState: false,
-    ingredientForm: {
-        ingredientName: '',
-        ingredientPrice: 'ex: 10.35',
-        ingredientPackSize: 'ex: 1kg is 1000',
-    },
-    ingredientName: '',
-    ingredientPrice: 'ex: 10',
-    ingredientPackSize: 'ex: 1kg is 1000',
-    ingredients: [],
-    updateIngredient: null,
     updateRecipe: null,
     recipeName: '',
     numberOfIngredients: 0,
     recipes: [],
+    ingredients: [],
 }
 
 export const reducer = (state, action) => {
@@ -51,28 +42,17 @@ export const reducer = (state, action) => {
                 recipeName:'ex: Lasagna',
                 numberOfIngredients: 'ex: 4',
             }
-        case 'UPDATE_INGREDIENT':
-            updateFirestoreItem('ingredientsList', action.payload);
+        case 'ADD_INGREDIENT_TO_RECIPE':
+            const { id, ingredientName, quantityUsed, unitPrice, unitYield } = action.payload
+            const items = { ingredient: { ingredientName, quantityUsed, unitPrice, unitYield } }
+            console.log(state)
+            state.ingredients.push(items)
+            const ingredient = state.ingredients
+            const item = { id, ingredient }
+            updateFirestoreItem('recipesList', item);
             return {
                 ...state,
-                ingredients: [
-                    action.payload,
-                    ...state.ingredients.ingredientsList.filter(b => b.id !== action.payload.id),
-                ]
-            }
-        case 'UPDATE_RECIPE':
-            updateFirestoreItem('recipesList', action.payload);
-            return {
-                ...state,
-                ingredients: [
-                    action.payload,
-                    ...state.recipes.recipesList.filter(b => b.id !== action.payload.id),
-                ]
-            }
-        case 'SET_INGREDIENTS_LIST':
-            return {
-                ...state,
-                ingredients: action.payload
+                ...state.ingredients
             }
         case 'SET_RECIPES_LIST':
             return {
@@ -84,22 +64,12 @@ export const reducer = (state, action) => {
                 ...state,
                 toggleState: action.payload
             }
-        case 'Update_BEVERAGE':
+        case 'DELETE_RECIPE':
+            deleteFirestoreItem('recipesList', action.payload)
             return {
                 ...state,
-                updateIngredient: action.payload
-            }
-        case 'CANCEL_Update_BEVERAGE':
-            return {
-                ...state,
-                updateIngredient: null
-            }
-        case 'DELETE_BEVERAGE':
-            deleteFirestoreItem('ingredientsList', action.payload)
-            return {
-                ...state,
-                ingredients: [
-                    state.ingredients
+                recipes: [
+                    state.recipes
                 ]
             }
         default:

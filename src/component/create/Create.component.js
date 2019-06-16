@@ -9,7 +9,7 @@ import Input from '../element/Input.component';
 import Button from '../element/Button.component';//TODO: Fix the File Indexing
 
 const defaultValues = {
-    id: '',
+    // id: '',
     ingredientName: "",
     ingredientPackSize: "",
     ingredientPrice: "",
@@ -20,6 +20,7 @@ const Create = () => {
     const dispatch = useContext(DispatchContext);
     const [formValues, setFormValues] = useState(defaultValues)
     const [selected, setSelected] = useState(false)
+    const [focus, setFocus] = useState(false)
     let items = data.ingredients.ingredientsList
     let sugestedList = items && items
         .filter(sugestedItem =>
@@ -71,7 +72,7 @@ const Create = () => {
 
         setFormValues({
             ...formValues,
-            id: selectedValue,
+            // id: selectedValue,
             ingredientName: ingredientName,
             ingredientPackSize: ingredientPackSize,
             ingredientPrice: ingredientPrice,
@@ -92,25 +93,28 @@ const Create = () => {
     return (
         <CreateComponentWrapper>
             <h4>Add ingredients</h4>
-            <Form onSubmit={(e) => addBeverage(e)}>
+            <Form onSubmit={(e) => addBeverage(e)} autoComplete="off">
                 <span>Ingredient name</span>
                 <Input
                     type='text'
                     name='ingredientName'
                     placeholder='ex: Onions'
+                    autoComplete="off"
                     onChange={(e) => setFormValues({
                         ...formValues,
                         ingredientName: e.target.value
                     })}
+                    onFocus={() => setFocus(true)}
+                    // onBlur={() => setFocus(false)}
                     value={formValues.ingredientName}
                     required
                 />
-                {sugestedList && !selected && sugestedList.map(({ id, ingredientName }) => {
+                {sugestedList && focus && !selected && sugestedList.map(({ id, ingredientName }) => {
                     return (
                         <Option id={id} ingredientName={ingredientName}/>
                         )
                     })}
-                <span>Ingredient Price per unit</span>
+                <span>Ingredient price per unit</span>
                 <Input
                     type='number'
                     step="any"
@@ -123,7 +127,7 @@ const Create = () => {
                     required
                     value={formValues.ingredientPrice}
                 />
-                <span>Packege size per unit</span>
+                <span>Packege size per unit in grams or milliliters</span>
                 <Input
                     type='number'
                     name='ingredientPackSize'
