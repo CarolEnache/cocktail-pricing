@@ -13,8 +13,8 @@ export const createFirestoreItem = (collection, item) => {
 
 export const updateFirestoreItem = (collection, item) => {
     try {
-        const { id, ...dbObj } = item;
-        db.collection(collection).doc(id).update(dbObj);
+        const { id, ...ingredient } = item;
+        db.collection(collection).doc(id).update(ingredient);
     }
     catch (e) {
         console.error(e);

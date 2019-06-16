@@ -16,15 +16,15 @@ const db = firebase.firestore();
 const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     useEffect(() => {
-        db.collection('ingredientsList').onSnapshot(snapshot => {
-            const bvList = {
-                ingredientsList: snapshot.docs.map(doc => ({
-                    ...doc.data(),
-                    id: doc.id
-                }))
-            };
-            dispatch({ type: 'SET_INGREDIENTS_LIST', payload: bvList });
-        });
+        // db.collection('ingredientsList').onSnapshot(snapshot => {
+        //     const bvList = {
+        //         ingredientsList: snapshot.docs.map(doc => ({
+        //             ...doc.data(),
+        //             id: doc.id
+        //         }))
+        //     };
+        //     dispatch({ type: 'SET_INGREDIENTS_LIST', payload: bvList });
+        // });
         db.collection('recipesList').onSnapshot(snapshot => {
             const recipesList = {
                 recipesList: snapshot.docs.map(doc => ({

@@ -22,12 +22,6 @@ const CreateRecipe = () => {
     const [pageTitle, setPageTitle] = useState('Create recipe');
     const [toggle, setToggle] = useState(false);
     const config = { mass: 5, tension: 2000, friction: 200 };
-    const ingredientsList = []
-    const ingredient = { ingredientName, unitYield, unitPrice, quantityUsed }
-
-    const handleIngrdient = () =>{
-        ingredientsList.push(ingredient)
-    }
 
     let initialListOfRecipesIds;
     useEffect(() => {
@@ -37,22 +31,36 @@ const CreateRecipe = () => {
 
     const updatedListOfRecipesIds = toRename.recipes.recipesList.map(m => m.id)
     const currentRecipeId = updatedListOfRecipesIds.filter(f => old && !old.includes(f))
-    console.log(currentRecipeId)
 
-    const addBeverage = (e) => {
+    const createRecipe = (e) => {
         e.preventDefault();
+        setToggle(true)
         dispatch({
             type: 'ADD_RECIPE',
             payload: {
                 recipeName,
                 numberOfPortions,
-                ingredientsList
             }
         });
     }
 
+    let ingredientsList = [];
+    const addIngredient = (e) => {
+        e.preventDefault()
+        // ingredientsList.push(ingredient)
+        dispatch({
+            type: 'ADD_INGREDIENT_TO_RECIPE',
+            payload: {
+                id: currentRecipeId[0],
+                ingredientName,
+                unitYield,
+                unitPrice,
+                quantityUsed
+            }
+        })
+    }
+
     const changeTilte = () => {
-        setToggle(true)
         setPageTitle([recipeName, ` serves: ${numberOfPortions}`]);
     }
 
@@ -80,13 +88,10 @@ const CreateRecipe = () => {
                     ))) : <h4>{pageTitle}</h4>}
                 </div>
             </TrailsMain>
-            <Form onSubmit={(e) => addBeverage(e)}>
+            <Fragment>
                 {toggle ? (
-                <Fragment>
+                <Form onSubmit={(e) => addIngredient(e)}>
                     <h5>Ingredients list:</h5>
-                    {
-                        console.log(ingredientsList.length ? 'yes' : 'no')
-                    }
                     <span>Ingredient name</span>
                     <Input
                         type='text'
@@ -130,10 +135,10 @@ const CreateRecipe = () => {
                         onChange={(e) => setUnitYield(e.target.value)}
                         required
                     />
-                    <Button theme={theme} type="button" onClick={handleIngrdient}>Add ingredient</Button>
-                </Fragment>
+                        <Button type="button" theme={theme} onClick={(e) => addIngredient(e)}>Add ingredient</Button>
+                </Form>
                 ) : (
-                <Fragment>
+                <Form onSubmit={(e) => createRecipe(e)}>
                     <span>Recipe name</span>
                     <Input
                         type='text'
@@ -151,17 +156,17 @@ const CreateRecipe = () => {
                         onChange={(e) => setNumberOfPortions(e.target.value)}
                         required
                     />
-                    <Button theme={theme} type="button" onClick={changeTilte}>Submit</Button>
-                </Fragment>
+                    {/* <Button theme={theme} type="button" >Submit</Button> */}
+                    <Button type="submit" theme={theme} onClick={changeTilte}>Create recipeee</Button>
+                </Form>
                 )}
-                <Button theme={theme} type="submit">Create recipe</Button>
-            </Form>
+            </Fragment>
         </CreateRecipeComponentWrapper>
     )
 }
 
 const CreateRecipeComponentWrapper = styled.div`
-    position: fixed;
+    // position: fixed;
     width: 100%;
     background-color: #FAFAFA;
     margin-bottom: 2em;
